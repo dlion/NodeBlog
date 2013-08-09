@@ -23,16 +23,22 @@ Tabelle
 * Utenti
 ** id
 ** nick
+** email
 ** password
 ** level
 ** hash (un hash casuale che viene messo poi nel cookie)
 ** ultimo login
-** tentativi falliti
+
+* Categorie
+** id
+** title
+** descr
 
 * Post
 ** id
 ** data
-** categoria
+** id categoria
 ** testo
+** id autore
 
-Per i commenti usiamo tranquillamente Disqus
+Per i commenti usiamo tranquillamente Disqus oppure li facciamo noi, dobbiamo imparare node, no ?
