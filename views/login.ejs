@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= namesite %><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form method='POST' action='/signin'>
+        <label>Nick:</label>
+        <input type='text' name='nick'/><br/>
+        <label>Password:</label>
+        <input type='password' name='pass'/><br/>
+        <input type='submit' name='send'/>
+    </form>
+  </body>
+</html>
