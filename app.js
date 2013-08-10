@@ -54,23 +54,16 @@ app.use(function(error, req, res, next) {
 app.get('/', routes.index);
 
 //
-// Login Page
+// User Login
 //
 
-app.get('/login', function(req, res) {
-    res.render('login.ejs', { namesite: NAMESITE, title: 'Login' });
-});
+app.get('/login', user.login);
 
 //
-// SignIn Process
+// User Signin
 //
 
-app.post('/signin',function(req, res) {
-    var nick = req.body.nick;
-    var pass = req.body.pass;
-    console.log("Ho ricevuto questi dati: %s %s",nick,pass);
-    //Qui ci va tutta la merda con il DB :| good luck
-});
+app.post('/signin',user.signin);
 
 //
 // Server Startup
