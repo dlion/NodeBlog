@@ -6,7 +6,8 @@
 var express = require('express'),
     config = require('./config'),
     routes = require('./routes'),
-    user = require('./routes/user'),
+    routesUser = require('./routes/user'),
+    controllerUser = require('./controller/user'),
     http = require('http'),
     path = require('path');
 
@@ -55,13 +56,13 @@ app.get('/', routes.index);
 // User Login
 //
 
-app.get('/login', user.login);
+app.get('/login', routesUser.login);
 
 //
 // User Signin
 //
 
-app.post('/signin',user.signin);
+app.post('/signin', controllerUser.signin);
 
 //
 // Prova Loggato
