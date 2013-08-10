@@ -3,26 +3,24 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
-
-var SECRET = "NodeBlogIsFuckinAwesome";
-var NAMESITE = "NodeBlog";
+var express = require('express'),
+    config = require('./config'),
+    routes = require('./routes'),
+    user = require('./routes/user'),
+    http = require('http'),
+    path = require('path');
 
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.web.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser(SECRET));
+app.use(express.cookieParser(config.web.secret_cookie));
 app.use(express.session());
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -35,7 +33,7 @@ app.use(express.errorHandler());
 
 app.use(function(req, res) {
     res.status(404);
-    res.render('404.ejs', { namesite: NAMESITE, title: '404 Page Not Found!', content: 'Where are you going, motherfoca!?' });
+    res.render('404.ejs', { namesite: config.web.namesite, title: '404 Page Not Found!', content: 'Where are you going, motherfoca!?' });
 });
 
 //
@@ -44,7 +42,7 @@ app.use(function(req, res) {
 
 app.use(function(error, req, res, next) {
     res.status(500);
-    res.render('500.ejs', { namesite: NAMESITE, title: "500 Fuckin' Error!", content: 'What do you do, motherfoca!?', error: error });
+    res.render('500.ejs', { namesite: config.web.namesite, title: '500 Fucking Error!', content: 'What do you do, motherfoca!?', error: error });
 });
 
 //
