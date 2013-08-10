@@ -1,7 +1,13 @@
 //
+// Configuration 
+//
+
+var config = require('../config/');
+
+//
 // GET Home Page
 //
 
 exports.index = function(req, res){
-  res.render('index', { title: 'NodeBlog - Index' });
+  res.render('index', { namesite: config.web.namesite,  title: 'Index' });
 };
