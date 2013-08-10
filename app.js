@@ -21,7 +21,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser(config.web.secret_cookie));
-app.use(express.session());
+app.use(express.session(config.web.secret_session));
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,6 +62,20 @@ app.get('/login', user.login);
 //
 
 app.post('/signin',user.signin);
+
+//
+// Prova Loggato
+//
+
+app.get('/loggato',function(req, res) {
+    if(!req.session.id || !req.session.nick) {
+        res.send('NON SEI LOGGATO!');
+    }
+    else {
+        res.send("Bentornato a casa "+req.session.nick);
+    }
+});
+
 
 //
 // Server Startup
