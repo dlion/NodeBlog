@@ -1,6 +1,6 @@
-/**
- * Module dependencies.
- */
+//
+// Module dependencies.
+//
 
 var express = require('express'),
     config = require('./config'),
@@ -76,7 +76,6 @@ app.get('/loggato',function(req, res) {
     }
 });
 
-
 //
 // Server Startup
 //
@@ -84,4 +83,3 @@ app.get('/loggato',function(req, res) {
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Server avviato sulla porta: ' + app.get('port'));
 });
-//Fine del file
