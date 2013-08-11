@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "3.3.4",
     "ejs": "*",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "jugglingdb": "~0.2.0-35"
   }
 }
