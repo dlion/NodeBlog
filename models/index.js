@@ -24,5 +24,8 @@ models.Categorie = schema.define('categorie', require('./categorie'));
 //
 //Define Relationship
 //
-
-//Unsi, qui mi sono perso, come definisco le varie relazioni?
+models.Utenti.hasMany(Post, {as: 'post', foreignKey:'autore'});
+//crea roba del tipo Utenti.post.all()
+models.Post.belongsTo(Utenti, {as: 'autore', foreignKey: 'autore'});
+//Post.autore
+models.Categorie.hasMany(Post, {as: 'categoria', foreignKey: 'id_categoria'});
