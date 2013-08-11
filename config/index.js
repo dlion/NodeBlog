@@ -14,7 +14,7 @@ config.web = {};
 config.jugglingdb.host = 'localhost';
 config.jugglingdb.port = 3306; //Insert correct port here
 config.jugglingdb.user = 'root';//Insert correct user here
-config.jugglingdb.pass = 'ciao'; //Insert correct pass here
+config.jugglingdb.pass = 'ciaojsbsjd'; //Insert correct pass here
 config.jugglingdb.db = 'NodeBlog'; //Insert correct name of database
 //
 // Declare Configuration of WebApp
