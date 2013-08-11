@@ -2,14 +2,15 @@
 // Configuration
 //
 
-var config = require('../../config')
- ,  models = require('../../models')
- ,  user = exports;
+var config = require('../../config');
+var models = require('../../models');
+var user = exports;
 
 //
 // SignIn Process
 //
 
+/*
 user.signin = function (req, res) {
     var nick = req.body.nick;
     var pass = req.body.pass;
@@ -23,6 +24,7 @@ user.signin = function (req, res) {
     //Qui ci va tutta la merda con il DB :| good luck
     res.redirect('/loggato');
 };
+*/
 
 //questo è un POC, bisogna poi provare
 user.all = function (callback){

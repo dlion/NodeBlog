@@ -9,5 +9,5 @@ module.exports = {
     password: { type: String, dataType: 'varchar', limit: 255 },
     level: { type: Number, dataType: 'tinyint' },
     hash: { type: String, dataType: 'varchar', limit: 255 },
-    last_login: { type: Date, dataType: 'datetime' }
-}
+    last_login: { type: Date, dataType: 'datetime' },
+};
