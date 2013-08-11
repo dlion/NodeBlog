@@ -1,0 +1,13 @@
+//
+// Module to explain Posts
+// 
+
+module.exports = {
+    id: { type: Number, dataType: 'bigint' },
+    data: { type: Data, dataType: 'datetime' },
+    id_categoria: { type: Number, dataType: 'tinyint' },
+    testo: { type: String, dataType: 'text' },
+    autore: { type: Number, dataType: 'tinyint' }
+}
+
+
