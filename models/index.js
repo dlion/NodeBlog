@@ -27,4 +27,3 @@ models.Categorie = schema.define('categorie', require('./categorie'));
 models.Utenti.hasMany(models.Post, {as: 'post', foreignKey:'autore'});
 //crea roba del tipo Utenti.post.all()
 models.Categorie.hasMany(models.Post, {as: 'categoria', foreignKey: 'id_categoria'});
-//fghjkl
