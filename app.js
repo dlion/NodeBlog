@@ -77,6 +77,12 @@ app.get('/loggato',function(req, res) {
 });
 
 //
+// Prova DB
+//
+
+app.get('/lista',controllerUser.list);
+
+//
 // Server Startup
 //
 

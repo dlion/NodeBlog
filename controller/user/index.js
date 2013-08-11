@@ -2,20 +2,62 @@
 // Configuration
 //
 
-var config = require('../../config');
-var models = require('../../models');
+var config = require('../../config'),
+    models = require('../../models'),
+    crypto = require('crypto');
+
 var user = exports;
+
+//
+// Function to returns user's password by ID
+//
+
+var PassById = function(chi, callback) {
+    models.Utenti.all( { where: { id: chi } }, function(err, dati) {
+        if(err !== null) throw err;
+        
+        callback(dati[0].password);
+    });
+};
+
+//
+// Function to returns user's ID by Nick
+//
+
+var IdByNick = function(chi, callback) {
+    models.Utenti.all( { where: { nick: chi } }, function(err, dati) {
+        if(err !== null) throw err;
+
+        callback(dati[0].nick);
+    });
+};
+
+//
+// Prova Stampa Pass by ID
+//
+
+user.list = function(res, req) {
+    PassById(1,console.log);
+};
 
 //
 // SignIn Process
 //
 
-
 user.signin = function (req, res) {
     var nick = req.body.nick;
     var pass = req.body.pass;
-    console.log("Ho ricevuto questi dati: %s %s",nick,pass);
-    if(nick == 'DLion' && pass == 'prova') {
+
+    //
+    // Per criptare qualcosa con lo sha1 utilizzo il modulo crypt
+    //
+    
+    var shasum = crypto.createHash('sha1');
+    shasum.update(pass);
+    var passcrypted = shasum.digest('hex');
+    
+    console.log("Ho ricevuto questi dati: %s %s\nLa pass criptata è: %s",nick,pass,passcrypted);
+    if(nick == 'DLion' && pass == 'ciao') {
         req.session.id = 1;
         req.session.nick = nick;
         req.session.admin = true;
@@ -23,25 +65,4 @@ user.signin = function (req, res) {
 
     //Qui ci va tutta la merda con il DB :| good luck
     res.redirect('/loggato');
-};
-
-
-//questo è un POC, bisogna poi provare
-user.all = function (callback){
-    models.Utenti.all(function(err, resp){
-        if (err !== null) throw err;
-        callback(resp);
-    });
-};
-
-//qui c'è anche un minimo di paginazione
-user.list = function (obj, callback) {
-    models.Utenti.all(
-        {order:'id', limit:20, skip:obj.skip},
-
-        function(err, resp){
-            if (err !== null) throw err;
-            callback(resp);
-        }
-    );
 };
