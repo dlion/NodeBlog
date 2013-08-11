@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -62,7 +61,7 @@ app.get('/login', routesUser.login);
 // User Signin
 //
 
-//app.post('/signin', controllerUser.signin);
+app.post('/signin', controllerUser.signin);
 
 //
 // Prova Loggato
