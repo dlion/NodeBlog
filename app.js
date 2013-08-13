@@ -6,6 +6,7 @@ var express = require('express'),
     config = require('./config'),
     routes = require('./routes'),
     routesUser = require('./routes/user'),
+    routesPost = require('./routes/posts'),
     controllerUser = require('./controller/user'),
     http = require('http'),
     path = require('path');
@@ -49,8 +50,13 @@ app.use(function(error, req, res, next) {
 // Index Page
 //
 
-app.get('/', routes.index);
-
+app.get('/', routesPost.index);
+// altre su articoli
+app.get('/:id-:title.html', routesPost.findOne);
+/*
+app.get('/page_:skip', routesPost.index);
+app.get('/cat/:cat', routesPost.byCat);
+*/
 //
 // User Login
 //

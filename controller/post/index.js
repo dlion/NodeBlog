@@ -1,6 +1,6 @@
-var config = require('../../config')
- ,  models = require('../../models')
- ,  post = exports;
+var config = require('../../config'),
+	models = require('../../models'),
+	post = exports;
 
 post.list = function(obj, callback){
 	models.Post.all(
@@ -10,8 +10,8 @@ post.list = function(obj, callback){
 			if(err !== null) throw err;
 			callback(resp);
 		}
-	)
-}
+	);
+};
 
 post.findOne = function(obj, callback){
 	models.Post.findOne(
@@ -21,4 +21,4 @@ post.findOne = function(obj, callback){
 			callback(resp);
 		}
 	);
-}
+};

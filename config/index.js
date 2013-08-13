@@ -13,7 +13,7 @@ config.web = {};
 //
 config.jugglingdb.user = 'root';//Insert correct user here
 config.jugglingdb.pass = 'root'; //Insert correct pass here
-config.jugglingdb.db = 'NodeBlog'; //Insert correct name of database
+config.jugglingdb.db = 'NodeBlog_db'; //Insert correct name of database
 //
 // Declare Configuration of WebApp
 //
