@@ -9,6 +9,7 @@ post.list = function(obj, callback){
 };
 
 post.findOne = function(obj, callback){
+    // Dovrebbe essere obj.params.id secondo http://i.imgur.com/h2Kw4U4.jpg no ?
 	models.Post.findOne( { where: { id: obj.id } }, function (erro, resp) {
         callback(resp);
 	});

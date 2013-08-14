@@ -16,7 +16,8 @@ exports.index = function (req, res) {
 };
 
 exports.findOne = function (req, res) {
-	if(req.id === null ){
+	// Req.id ? Ma secondo http://i.imgur.com/h2Kw4U4.jpg dovrebbe essere: req.params.id
+    if(req.id === null ){
 		res.status(404);
     	res.render('404.ejs', { namesite: config.web.namesite, title: '404 Page Not Found!', content: 'There are no articles like that' });
 	}
