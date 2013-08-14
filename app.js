@@ -6,7 +6,7 @@ var express = require('express'),
     config = require('./config'),
     routes = require('./routes'),
     routesUser = require('./routes/user'),
-    routesPost = require('./routes/posts'),
+    routesPost = require('./routes/post'),
     controllerUser = require('./controller/user'),
     http = require('http'),
     path = require('path');
@@ -51,12 +51,27 @@ app.use(function(error, req, res, next) {
 //
 
 app.get('/', routesPost.index);
-// altre su articoli
+
+//
+// Show Article
+//
+
 app.get('/:id-:title.html', routesPost.findOne);
+
 /*
+//
+// ????????
+// 
+
 app.get('/page_:skip', routesPost.index);
+
+//
+// Show Articles by Category
+// 
+
 app.get('/cat/:cat', routesPost.byCat);
 */
+
 //
 // User Login
 //
@@ -70,23 +85,10 @@ app.get('/login', routesUser.login);
 app.post('/signin', controllerUser.signin);
 
 //
-// Prova Loggato
-//
+// Simple Prova
+// 
 
-app.get('/loggato',function(req, res) {
-    if(!req.session.id || !req.session.nick) {
-        res.send('NON SEI LOGGATO!');
-    }
-    else {
-        res.send("Bentornato a casa "+req.session.nick);
-    }
-});
-
-//
-// Prova DB
-//
-
-app.get('/lista',controllerUser.list);
+app.get('/prova',controllerUser.prova);
 
 //
 // Server Startup

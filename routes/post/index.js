@@ -1,5 +1,5 @@
-var config = require ('../config')
- ,  post   = require ('../controller/post');
+var config = require ('../../config/'),
+    post   = require ('../../controller/post');
 
 exports.index = function (req, res) {
 	if(req.skip === null){

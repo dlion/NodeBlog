@@ -4,47 +4,49 @@
 
 var config = require('../../config'),
     models = require('../../models'),
+    utilities = require('../../utilities/function.js'),
     crypto = require('crypto');
 
 var user = exports;
 
 //
-// Function to returns user's password by ID
-//
+// Function to return user's information by ID
+// chi: ID (number)
+// cosa: id, nic, emai,etc. (string)
+// callback: function
+// next: error handle
+// 
 
-var PassById = function(chi, callback) {
-    models.Utenti.all( { where: { id: chi } }, function(err, dati) {
-        if(err !== null) throw err;
-        
-        callback(dati[0].password);
-    });
+var EverythingById = function(chi,cosa,callback,next) {
+    var elementi = [ 'id', 'nick', 'email', 'password', 'hash', 'last_login' ];
+    if(utilities.inArray(elementi,cosa)) {
+        models.Utenti.all( { where: { id: chi } }, function(err, dati) {
+            /*
+             * Questa non funziona!
+             * if(err)
+             *  next(err);
+             */
+
+            callback(dati[0][cosa]);
+        });
+    }
+    else
+        next("Error on EverythingById: '"+cosa+ "' doesn't find!");
 };
 
 //
-// Function to returns user's ID by Nick
-//
+// Prova
+// 
 
-var IdByNick = function(chi, callback) {
-    models.Utenti.all( { where: { nick: chi } }, function(err, dati) {
-        if(err !== null) throw err;
-
-        callback(dati[0].nick);
-    });
-};
-
-//
-// Prova Stampa Pass by ID
-//
-
-user.list = function(res, req) {
-    PassById(1,console.log);
+user.prova = function(req, res,next) {
+    EverythingById(1,'password',console.log,next);
 };
 
 //
 // SignIn Process
 //
 
-user.signin = function (req, res) {
+user.signin = function(req, res) {
     var nick = req.body.nick;
     var pass = req.body.pass;
 
