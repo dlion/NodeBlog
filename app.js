@@ -26,7 +26,7 @@ app.use(express.session(config.web.secret_session));
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.errorHandler());
+app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
 
 //
 // 404 Page Not Found Error
@@ -56,21 +56,20 @@ app.get('/', routesPost.index);
 // Show Article
 //
 
-app.get('/:id-:title.html', routesPost.findOne);
+app.get('/:id\_:title.html', routesPost.show);
 
-/*
 //
-// ????????
+// Show pagination 
 // 
 
-app.get('/page_:skip', routesPost.index);
+app.get('/page_:page', routesPost.index);
 
 //
 // Show Articles by Category
 // 
 
-app.get('/cat/:cat', routesPost.byCat);
-*/
+//app.get('/cat/:cat', routesPost.byCat);
+
 
 //
 // User Login
