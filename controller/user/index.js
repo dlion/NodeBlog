@@ -60,7 +60,7 @@ user.signin = function(obj, callback) {
         shasum.update(saltcrypted+passcrypted);
         var everythingcrypted = shasum.digest('hex');
 
-        models.Utenti.count( {where: { nick: nick }, limit: 1}, function(err, conto) {
+        models.Utenti.count( { nick: nick }, function(err, conto) {
             if(conto > 0) {
                 models.Utenti.all( { where: { nick: nick }, limit: 1}, function(err, dati) {
                     if(dati[0].password === everythingcrypted) {
@@ -69,8 +69,9 @@ user.signin = function(obj, callback) {
                         
                         return callback("Login Successfull!");
                     }
-                    else
+                    else {
                         callback("Password Incorrect!");
+                    }
                 });
             }
             else {
