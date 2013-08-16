@@ -1,29 +1,39 @@
 var config = require('../config'),
-    Schema = require('jugglingdb').Schema;
-
-//
-// JugglingDb Config
-//
-
-var schema = new Schema('mysql', {
-                database: config.jugglingdb.db,
-                username: config.jugglingdb.user,
-                password: config.jugglingdb.pass
-});
+    orm = require('orm'),
+    paging = require('orm-paging');
 
 var models = exports;
 
-//
-//Define Models
-//
-
-models.Utenti = schema.define('utenti', require('./utenti'));
-models.Post = schema.define('post', require('./post'));
-models.Categorie = schema.define('categorie', require('./categorie'));
 
 //
-//Define Relationship
+//Define and initialize Models
 //
-models.Utenti.hasMany(models.Post, {as: 'post', foreignKey:'autore'});
-//crea roba del tipo Utenti.post.all()
-models.Categorie.hasMany(models.Post, {as: 'categoria', foreignKey: 'id_categoria'});
+
+function setup(db) {
+    models.Utenti = db.define('utenti', require('./utenti'));
+    models.Post = db.define('post', require('./post'));
+    models.Categorie = db.define('categorie', require('./categorie'));
+    
+    //
+    //Associations
+    //
+    models.Post.hasOne('autore', models.Utenti);
+    models.Utenti.hasMany('articoli', models.Post);
+    models.Post.hasOne('categoria',models.Categorie);
+};
+
+//
+// ORM Connect
+//
+
+orm.connect("mysql://"+config.orm.user+":"+config.orm.pass+"@"+config.orm.host+"/"+config.orm.db, function(err, db) {
+    if(err) {
+        console.log("Impossibile stabilire una connessione!",err);
+        return;
+    }
+    //Use Paging
+    db.use(paging);
+    //Initialize Models
+    setup(db);
+});
+

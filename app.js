@@ -50,26 +50,7 @@ app.use(function(error, req, res, next) {
 // Index Page
 //
 
-app.get('/', routesPost.index);
-
-//
-// Show Article
-//
-
-app.get('/:id_:title.html', routesPost.show);
-
-//
-// Show pagination 
-// 
-
-app.get('/page/:page', routesPost.index);
-
-//
-// Show Articles by Category
-// 
-
-//app.get('/cat/:cat', routesPost.byCat);
-
+app.get('/', routes.index);
 
 //
 // User Login
@@ -82,12 +63,6 @@ app.get('/login', routesUser.login);
 //
 
 app.post('/login', routesUser.signin);
-
-//
-// Simple Prova
-// 
-
-app.get('/prova',controllerUser.prova);
 
 //
 // Server Startup

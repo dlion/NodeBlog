@@ -3,7 +3,7 @@
 // 
 
 module.exports = {
-    id: { type: Number, dataType: 'tinyint' },
-    title: { type: String, dataType: 'varchar' },
-    descr: { type: String, dataType: 'text' }
-}
+    id: { type: "number", unique: true },
+    title: { type: "text" },
+    descr: { type: "text" }
+};

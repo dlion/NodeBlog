@@ -2,9 +2,15 @@ var config = require ('../../config/'),
     post   = require ('../../controller/post');
 
 /***
+ *
+ * DEPRECATED --- BISOGNA AGGIORNARLE PER IL NUOVO ORM
+ *
+ *
+ *
+ *
  * This is the route function for the index of the blog
  * this handle the cronological list of all the posts
- */
+
 exports.index = function (req, res) {
 	if(req.skip === null){
 		req.skip = 0;
@@ -22,7 +28,6 @@ exports.index = function (req, res) {
 /***
  * This is the route function for the single pages of the blog
  * this handle the single post
- */
 
 exports.show = function (req, res) {
 	//non so se questa condizione si avvererà mai ma meglio 
@@ -41,3 +46,4 @@ exports.show = function (req, res) {
 		});
 	}
 }
+*/

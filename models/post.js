@@ -3,11 +3,11 @@
 // 
 
 module.exports = {
-    id: { type: Number, dataType: 'bigint' },
-    data: { type: Date, dataType: 'timestamp' },
-    id_categoria: { type: Number, dataType: 'tinyint' },
-    testo: { type: String, dataType: 'text' },
-    autore: { type: Number, dataType: 'tinyint' }
-}
+    id: { type: "number", unique: true },
+    data: { type: "date", time: true },
+    id_categoria: { type: "number" },
+    testo: { type: "text" },
+    autore: { type: "number" }
+};
 
 

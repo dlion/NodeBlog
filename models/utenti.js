@@ -3,10 +3,10 @@
 // 
 
 module.exports = {
-    id: { type: Number, dataType: 'tinyint' },
-    nick: { type: String, dataType: 'varchar', limit: 50 },
-    email: { type: String, dataType: 'varchar', limit: 100 },
-    password: { type: String, dataType: 'varchar', limit: 255 },
-    hash: { type: String, dataType: 'varchar', limit: 255 },
-    last_login: { type: Date, dataType: 'timestamp' },
+    id: { type: "number", unique: true },
+    nick: { type: "text", size: 50 },
+    email: { type: "text", size: 100 },
+    password: { type: "text", size: 255 },
+    hash: { type: "text", size: 255 },
+    last_login: { type: "date", time: true }
 };

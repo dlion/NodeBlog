@@ -6,14 +6,17 @@ var config = {};
 //
 // Declare Objects
 //
-config.jugglingdb = {};
+config.orm = {};
 config.web = {};
 //
 // Declare Configuration of Database
 //
-config.jugglingdb.user = 'root';//Insert correct user here
-config.jugglingdb.pass = 'root'; //Insert correct pass here
-config.jugglingdb.db = 'NodeBlog_db'; //Insert correct name of database
+
+config.orm.host = 'localhost'; //Insert correct host here
+config.orm.db = 'NodeBlog'; //Insert correct name of database
+config.orm.user = 'root';//Insert correct user here
+config.orm.pass = 'root'; //Insert correct pass here
+
 //
 // Declare Configuration of WebApp
 //

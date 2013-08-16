@@ -17,24 +17,15 @@ var user = exports;
 // next: error handle
 // 
 
-var EverythingById = function(chi,cosa,callback,next) {
+var EverythingById = function(chi,cosa,callback) {
     var elementi = [ 'id', 'nick', 'email', 'password', 'hash', 'last_login' ];
     if(utilities.inArray(elementi,cosa)) {
-        models.Utenti.all( { where: { id: chi } }, function(err, dati) {
-            callback(dati[0][cosa]);
+        models.Utenti.get(chi, function(err, user) {
+            callback(user[cosa]);
         });
     }
-    else
-        next("Error on EverythingById: '"+cosa+ "' doesn't find!");
 };
 
-//
-// Prova
-// 
-
-user.prova = function(req, res,next) {
-    EverythingById(1,'password',console.log,next);
-};
 
 //
 // SignIn Process
@@ -47,35 +38,36 @@ user.signin = function(obj, callback) {
         return callback("Insert Nick && Pass, please!");
     }
     else {
-        //Crypt Salt
+       // Crypt Salt
         var shasum = crypto.createHash('sha1');
         shasum.update(config.web.secret_salt);
         var saltcrypted = shasum.digest('hex');
-        //Crypt Pass
+       // Crypt Pass
         shasum = crypto.createHash('sha1');
         shasum.update(pass);
         var passcrypted = shasum.digest('hex');
-        //Crypt everything
+        // Crypt everything
         shasum = crypto.createHash('sha1');
         shasum.update(saltcrypted+passcrypted);
         var everythingcrypted = shasum.digest('hex');
+        //Conto gli utenti con il nick e la pass
+        models.Utenti.count( { nick: nick, password: everythingcrypted }, function(err, count) {
+            if(err) {
+                console.log(err);
+                return;
+            }
+            //Se ho degli utenti che corrispondono
+            if(count > 0) {
+                models.Utenti.find( { nick: nick, password: everythingcrypted }, 1, function(err, utente) {
+                    obj.session.nick = nick;
+                    obj.session.id = utente.id;
+                    obj.session.logIN = true;
 
-        models.Utenti.count( { nick: nick }, function(err, conto) {
-            if(conto > 0) {
-                models.Utenti.all( { where: { nick: nick }, limit: 1}, function(err, dati) {
-                    if(dati[0].password === everythingcrypted) {
-                        obj.session.nick = dati[0].nick;
-                        obj.session.id = dati[0].id;
-                        
-                        return callback("Login Successfull!");
-                    }
-                    else {
-                        callback("Password Incorrect!");
-                    }
+                    return callback("Login Successfull!");
                 });
             }
             else {
-                return callback("User not found!");
+                return callback("Login Incorrect!");
             }
         });
     }
