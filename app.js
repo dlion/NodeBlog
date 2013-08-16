@@ -56,13 +56,13 @@ app.get('/', routesPost.index);
 // Show Article
 //
 
-app.get('/:id\_:title.html', routesPost.show);
+app.get('/:id_:title.html', routesPost.show);
 
 //
 // Show pagination 
 // 
 
-app.get('/page_:page', routesPost.index);
+app.get('/page/:page', routesPost.index);
 
 //
 // Show Articles by Category
@@ -81,7 +81,7 @@ app.get('/login', routesUser.login);
 // User Signin
 //
 
-app.post('/signin', controllerUser.signin);
+app.post('/login', routesUser.signin);
 
 //
 // Simple Prova
