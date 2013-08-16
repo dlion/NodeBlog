@@ -21,12 +21,6 @@ var EverythingById = function(chi,cosa,callback,next) {
     var elementi = [ 'id', 'nick', 'email', 'password', 'hash', 'last_login' ];
     if(utilities.inArray(elementi,cosa)) {
         models.Utenti.all( { where: { id: chi } }, function(err, dati) {
-            /*
-             * Questa non funziona!
-             * if(err)
-             *  next(err);
-             */
-
             callback(dati[0][cosa]);
         });
     }
@@ -46,25 +40,42 @@ user.prova = function(req, res,next) {
 // SignIn Process
 //
 
-user.signin = function(req, res) {
-    var nick = req.body.nick;
-    var pass = req.body.pass;
-
-    //
-    // Per criptare qualcosa con lo sha1 utilizzo il modulo crypt
-    //
-    
-    var shasum = crypto.createHash('sha1');
-    shasum.update(pass);
-    var passcrypted = shasum.digest('hex');
-    
-    console.log("Ho ricevuto questi dati: %s %s\nLa pass criptata è: %s",nick,pass,passcrypted);
-    if(nick == 'DLion' && pass == 'ciao') {
-        req.session.id = 1;
-        req.session.nick = nick;
-        req.session.admin = true;
+user.signin = function(obj, callback) {
+    var nick = obj.body.nick,
+        pass = obj.body.pass;
+    if(nick.length == 0 || pass.length == 0) {
+        return callback("Insert Nick && Pass, please!");
     }
+    else {
+        //Crypt Salt
+        var shasum = crypto.createHash('sha1');
+        shasum.update(config.web.secret_salt);
+        var saltcrypted = shasum.digest('hex');
+        //Crypt Pass
+        shasum = crypto.createHash('sha1');
+        shasum.update(pass);
+        var passcrypted = shasum.digest('hex');
+        //Crypt everything
+        shasum = crypto.createHash('sha1');
+        shasum.update(saltcrypted+passcrypted);
+        var everythingcrypted = shasum.digest('hex');
 
-    //Qui ci va tutta la merda con il DB :| good luck
-    res.redirect('/loggato');
+        models.Utenti.count( {where: { nick: nick }, limit: 1}, function(err, conto) {
+            if(conto > 0) {
+                models.Utenti.all( { where: { nick: nick }, limit: 1}, function(err, dati) {
+                    if(dati[0].password === everythingcrypted) {
+                        obj.session.nick = dati[0].nick;
+                        obj.session.id = dati[0].id;
+                        
+                        return callback("Login Successfull!");
+                    }
+                    else
+                        callback("Password Incorrect!");
+                });
+            }
+            else {
+                return callback("User not found!");
+            }
+        });
+    }
 };
