@@ -67,8 +67,8 @@ user.signin = function(obj, callback) {
                     obj.session.nick = nick;
                     obj.session.id = utente.id;
                     obj.session.logIN = true;
-
-                    return callback(1,"Login Successfull!");
+                    //Qui ci dovrebbe andare il save ma non funge :S
+                    return callback(1, "Login Successfull!");
                 });
             }
             else {
