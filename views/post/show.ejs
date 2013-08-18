@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title><%= namesite %> - <%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div id="container">
+    	<div class="post">
+    		<div class="intro">
+    			<%= arr.testo %>
+    		</div>
+    		<div class="who">
+    			Scritto da: <%= arr.autore_id %> nella categoria <%= arr.categoria_id %>
+    		</div>
+    	</div>
+    </div>
+  </body>
+</html>

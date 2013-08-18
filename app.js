@@ -53,7 +53,12 @@ app.use(function(error, req, res, next) {
 // Index Page
 //
 
-app.get('/', routes.index);
+app.get('/', routesPost.list);
+
+//
+// Single post page
+//
+app.get('/:id',routesPost.show);
 
 //
 // User Login

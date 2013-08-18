@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title><%= namesite %> - <%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div id="container">
+    	<% for (var i = 0; i < arr.length; ++i){ %>
+    	<div class="post">
+    		<div class="intro">
+    			<%= arr[i].testo.substring(0,100) %>
+    			<p>continua a leggere <a href="./<%= arr[i].id%>">qui</a></p>
+    		</div>
+    		<div class="who">
+    			Scritto da: <%= arr[i].autore_id %> nella categoria <%= arr[i].categoria_id %>
+    		</div>
+    	</div>
+    	<% } %>
+    </div>
+  </body>
+</html>
