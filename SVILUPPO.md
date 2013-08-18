@@ -14,7 +14,7 @@ test => i test per vedere se le cose in ogni stadio funzionano
 Strumenti
 ==========
 * Express.js
-* JugglingDB (unico orm decente)
+* ORM2
 * direi ejs così possiamo usare tranquillamente template presi da internet
 * per i test usare assert, non ci complichiamo la vita più di tanto
 

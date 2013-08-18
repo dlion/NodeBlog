@@ -14,8 +14,8 @@ exports.login = function(req, res) {
 };
 
 exports.signin = function(req, res) {
-    controller.signin(req, function(obj) {
-        console.log("COSA: "+obj);
+    controller.signin(req, function(risultato,stringa) {
+        console.log("Risultato: "+risultato+"\nExplain: "+stringa);    
     });
 };
 

@@ -34,7 +34,7 @@ user.signin = function(obj, callback) {
     var nick = obj.body.nick,
         pass = obj.body.pass;
     if(nick.length == 0 || pass.length == 0) {
-        return callback("Insert Nick && Pass, please!");
+        return callback(-1,"Insert Nick && Pass, please!");
     }
     else {
        // Crypt Salt
@@ -56,11 +56,11 @@ user.signin = function(obj, callback) {
                     obj.session.id = utente.id;
                     obj.session.logIN = true;
 
-                    return callback("Login Successfull!");
+                    return callback(1,"Login Successfull!");
                 });
             }
             else {
-                return callback("Login Incorrect!");
+                return callback(0,"Login Incorrect!");
             }
         });
     }

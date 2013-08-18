@@ -16,7 +16,7 @@ exports.index = function (req, res) {
 		req.skip = 0;
 	}
 	post.list(req, function(obj){
-		res.render('post',  {
+		res.render('admin/post',  {
 			namesite: config.web.namesite,
 			title: config.web.namesite,
 			//ho assegnato il callback del controller 
@@ -38,7 +38,7 @@ exports.show = function (req, res) {
 	}
 	else {
 		post.show(req, function(obj){
-			res.render('post/singlepage',  {
+			res.render('admin/post/singlepage',  {
 				namesite: config.web.namesite,
 				title: 'Login',
 				arr: obj
