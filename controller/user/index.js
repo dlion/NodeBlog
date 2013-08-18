@@ -63,12 +63,19 @@ user.signin = function(obj, callback) {
             }
             //Se ho degli utenti che corrispondono
             if(count > 0) {
-                models.Utenti.find( { nick: nick, password: everythingcrypted }, 1, function(err, utente) {
+                models.Utenti.find( { nick: nick, password: everythingcrypted }).each(function(utente) {
                     obj.session.nick = nick;
                     obj.session.id = utente.id;
                     obj.session.logIN = true;
+                    utente.last_login = utilities.getTimestamp();
                     //Qui ci dovrebbe andare il save ma non funge :S
-                    return callback(1, "Login Successfull!");
+                }).save(function(err) {
+                    if(err) {
+                        return callback(-1, "Errore: "+err);
+                    }
+                    else {
+                        return callback(1, "Login Successfull!");
+                    }
                 });
             }
             else {
