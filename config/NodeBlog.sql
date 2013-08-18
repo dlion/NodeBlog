@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generato il: Ago 11, 2013 alle 15:15
+-- Generato il: Ago 18, 2013 alle 15:01
 -- Versione del server: 5.5.31-MariaDB-log
 -- Versione PHP: 5.4.17
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `utenti` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `hash` varchar(255) NOT NULL,
-  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_login` bigint(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `utenti` (
 --
 
 INSERT INTO `utenti` (`id`, `nick`, `email`, `password`, `hash`, `last_login`) VALUES
-(1, 'DLion', 'domenicoleoneluciani@gmail.com', '46bf7549e93d8716756567c2882284f79ead7d0d', '4ba84e9293cb54e01c761c41d4ea8fa5b0b4dcbd', '2013-08-11 02:25:12');
+(1, 'DLion', 'domenicoleoneluciani@gmail.com', '44035a34624b866086d5c67de7e5a8eec104439f', '4ba84e9293cb54e01c761c41d4ea8fa5b0b4dcbd', 20130816030307);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
