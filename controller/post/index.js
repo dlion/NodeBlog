@@ -2,7 +2,6 @@ var config = require('../../config'),
 	models = require('../../models'),
 	post = exports;
 
-
 /*
  * Questa funzione gestisce la lista dei post, funziona anche
  * per impaginare, basta dare in input get un parametro page
@@ -27,7 +26,6 @@ post.list = function(obj, callback){
  * Questa funzione gestisce la richiesta di un solo articolo del 
  * blog
 */
-
 
 post.show = function(obj, callback){
 	models.Post.get(obj.params.id,function (err, resp) {
