@@ -32,4 +32,20 @@ exports.cryptSha1 = function(stringa) {
         return null;
     }
 };
-    
+ 
+//
+// Returns Unix Timestamp
+//
+
+exports.getTimestamp = function() {
+    return Math.round(+new Date()/1000);
+};
+
+//
+// Returns Date from Unix Timestamp
+// 
+
+exports.getDateFromTimestamp = function(timestamp) {
+    var data = new Date(timestamp * 1000);
+    return data.getDate() + '/' + data.getMonth() + '/' + data.getFullYear() + ' - ' + data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
+};
