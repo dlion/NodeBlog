@@ -12,9 +12,7 @@ var express = require('express'),
     //User Routes
     routesUser = require('./routes/user'),
     //Post Routes
-    routesPost = require('./routes/post'),
-    //User Controller
-    controllerUser = require('./controller/user');
+    routesPost = require('./routes/post');
 
 var app = express();
 
@@ -68,6 +66,18 @@ app.get('/login', routesUser.login);
 //
 
 app.post('/login', routesUser.signin);
+
+//
+// User Signout
+// 
+
+app.get('/logout', routesUser.signout);
+
+//
+// Dashboard
+// 
+
+app.get('/dashboard', routesUser.dashboard);
 
 //
 // Server Startup

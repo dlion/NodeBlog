@@ -25,6 +25,18 @@ var EverythingById = function(chi,cosa,callback) {
     }
 };
 
+//
+// Check if an user is Logged
+//
+
+user.isLogged = function(obj, callback) {
+    if(!obj.session.nick || !obj.session.id || !obj.session.logIN) {
+        return callback(0);
+    }
+    else {
+        return callback(1);
+    }
+};
 
 //
 // SignIn Process
@@ -61,6 +73,24 @@ user.signin = function(obj, callback) {
             }
             else {
                 return callback(0,"Login Incorrect!");
+            }
+        });
+    }
+};
+
+//
+// SignOut Process
+//
+
+user.signout = function(obj, callback) {
+    if(obj.session.nick || obj.session.id || obj.session.logIN) {
+        obj.session.destroy(function(err) {
+            if(err) {
+                console.log(err);
+                return;
+            }
+            else {
+                callback(1);
             }
         });
     }
