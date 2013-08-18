@@ -10,16 +10,22 @@ var config = require('../../config'),
 
 post.list = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
-
-	models.Post.page(page).run(function(err, resp){
-		//error reporting
-		if(err) {
-			console.log(err);
-			return;
-		}
-		console.log(resp); //debug pourpose
-		callback(resp);
-	});
+    
+	models.Post.pages(function(err, articoli) {
+        if(articoli > 0) {
+            models.Post.page(page).run(function(err, resp){
+		        //error reporting
+		        if(err) {
+			        console.log(err);
+			        return;
+		        }
+		        return callback(articoli, resp);
+	        });
+        }
+        else {
+            return callback(articoli, "Nessun Articolo Disponibile!");
+        }
+    });
 };
 
 /***
