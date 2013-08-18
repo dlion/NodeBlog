@@ -4,8 +4,7 @@
 
 var config = require('../../config'),
     models = require('../../models'),
-    utilities = require('../../utilities/function.js'),
-    crypto = require('crypto');
+    utilities = require('../../utilities/function.js');
 
 var user = exports;
 
@@ -39,17 +38,11 @@ user.signin = function(obj, callback) {
     }
     else {
        // Crypt Salt
-        var shasum = crypto.createHash('sha1');
-        shasum.update(config.web.secret_salt);
-        var saltcrypted = shasum.digest('hex');
+        var saltcrypted = utilities.cryptSha1(config.web.secret_salt);
        // Crypt Pass
-        shasum = crypto.createHash('sha1');
-        shasum.update(pass);
-        var passcrypted = shasum.digest('hex');
+        var passcrypted = utilities.cryptSha1(pass);
         // Crypt everything
-        shasum = crypto.createHash('sha1');
-        shasum.update(saltcrypted+passcrypted);
-        var everythingcrypted = shasum.digest('hex');
+        var everythingcrypted = utilities.cryptSha1(saltcrypted+passcrypted);
         //Conto gli utenti con il nick e la pass
         models.Utenti.count( { nick: nick, password: everythingcrypted }, function(err, count) {
             if(err) {

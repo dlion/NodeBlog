@@ -3,13 +3,18 @@
 //
 
 var express = require('express'),
-    config = require('./config'),
-    routes = require('./routes'),
-    routesUser = require('./routes/user'),
-    routesPost = require('./routes/post'),
-    controllerUser = require('./controller/user'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    // Configuration file
+    config = require('./config'),
+    // Index Routes
+    routes = require('./routes'),
+    //User Routes
+    routesUser = require('./routes/user'),
+    //Post Routes
+    routesPost = require('./routes/post'),
+    //User Controller
+    controllerUser = require('./controller/user');
 
 var app = express();
 
