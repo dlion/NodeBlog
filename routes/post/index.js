@@ -8,10 +8,11 @@ var config       = require ('../../config/'),
  */
 
 post.list = function(req, res) {
-	controller.list(req, function(obj){
+	controller.list(req, function(number,obj){
 		res.render('post/index',  {
 			namesite: config.web.namesite,
 			title: config.web.namesite,
+            numero: number,
 			arr: obj 
 		});
 	});
