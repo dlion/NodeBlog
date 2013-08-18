@@ -7,9 +7,10 @@
   <body>
     <h1><%= title %></h1>
     <div id="container">
-    	<% for (var i = 0; i < arr.length; ++i){ %>
+        <% if (numero > 0) { %>
+            <% for (var i = 0; i < arr.length; i++){ %>
     	<div class="post">
-    		<div class="intro">
+            <div class="intro">
     			<%= arr[i].testo.substring(0,100) %>
     			<p>continua a leggere <a href="./<%= arr[i].id%>">qui</a></p>
     		</div>
@@ -17,7 +18,11 @@
     			Scritto da: <%= arr[i].autore_id %> nella categoria <%= arr[i].categoria_id %>
     		</div>
     	</div>
-    	<% } %>
+            <% } %>
+        <% } %>
+        <% if (numero == 0) { %>
+            <h3><%= arr %></h3>
+        <% } %>
     </div>
   </body>
 </html>
