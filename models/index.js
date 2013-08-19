@@ -1,8 +1,7 @@
-var config = require('../config'),
-    orm = require('orm'),
-    paging = require('orm-paging');
-
-var models = exports;
+var config  = require('../config'),
+    orm     = require('orm'),
+    paging  = require('orm-paging'),
+    models  = exports;
 
 
 //
@@ -28,7 +27,7 @@ function setup(db) {
 
 orm.connect("mysql://"+config.orm.user+":"+config.orm.pass+"@"+config.orm.host+"/"+config.orm.db, function(err, db) {
     if(err) {
-        console.log("Impossibile stabilire una connessione!",err);
+        console.log("Impossibile stabilire una connessione!\n",err);
         return;
     }
     //Use Paging
