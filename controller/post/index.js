@@ -28,6 +28,7 @@ post.list = function(obj, callback){
     });
 };
 
+
 /***
  * Questa funzione gestisce la richiesta di un solo articolo del 
  * blog

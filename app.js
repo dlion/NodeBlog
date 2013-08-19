@@ -85,7 +85,7 @@ app.get('/logout', routesUser.signout);
 // Dashboard
 // 
 
-app.get('/dashboard', routesUser.dashboard);
+app.get('/dashboard', routesPost.dashboard);
 app.get('/dashboard/:id', routesPost.formRender);
 
 //

@@ -8,9 +8,23 @@
   <body>
     <h1>Pannello di controllo</h1>
     <div id="content">
-    	<p>Caricamento in corso...</p>
+      <table>
+        <tr>
+          <td>Titolo</td>
+          <td>Modifica</td>
+          <td>Elimina</td>
+        </tr>
+    	<% for (var i = 0; i < obj.length; i++){ %>
+        <tr>
+          <td><%= obj[i].titolo %></td>
+          <td><a href="./dashboard/<%=obj[i].id %>">Modifica</a></td>
+          <td><button class="delete" rel="<%= obj[i].id %>">Elimina</button>
+        </tr>
+      <% } %>
+       <tr><td><button class="new">Crea nuovo articolo</button></td></tr>
+    </table>
     </div>
-     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-     <script type="text/javascript" src="./javascript/pannello.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src='./javascript/pannello.js'></script>
   </body>
 </html>

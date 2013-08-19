@@ -65,18 +65,5 @@ user.signout = function(req, res) {
     });
 };
 
-//
-// Dashboard
-// 
 
-user.dashboard = function(req, res) {
-    controller.isLogged(req, function(risultato) {
-        if(risultato > 0) {
-            res.render('admin/dashboard', { namesite: config.web.namesite, title: 'DashBoard' });
-        }
-        else {
-            res.redirect('/login');
-        }
-    });
-};
 

@@ -114,3 +114,22 @@ post.formRender = function (req, res){
 		}
 	});
 };
+
+//
+// Dashboard
+// 
+
+post.dashboard = function(req, res) {
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            controller.list(req, function(number,arr){
+            	res.render('admin/dashboard',{
+            		obj:arr
+            	});
+            });
+        }
+        else {
+            res.redirect('/login');
+        }
+    });
+};
