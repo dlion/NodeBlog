@@ -27,7 +27,7 @@ post.show = function (req, res) {
     controller.show(req, function(obj){
     	res.render('post/show', {
     		namesite: config.web.namesite,
-			title: config.web.namesite,
+			title: obj.titolo,
 			arr: obj 
     	});
     });
