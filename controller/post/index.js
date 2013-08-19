@@ -43,3 +43,57 @@ post.show = function(obj, callback){
 		}
 	);
 };
+
+//da qui in poi vanno provate
+
+/***
+ * Questa funzione gestisce l'immissione di un post nel database
+*/
+post.create = function(obj, callback){
+	models.Post.create({
+		titolo:        obj.body.titolo,
+		testo:         obj.body.testo,
+		categoria_id:  obj.body.categoria_id,
+		autore_id:     obj.session.id
+	}, function(err, item){
+		if(err){
+			console.log(err);
+			callback(err);
+			return;
+		}
+		callback("Post aggiunto");
+	});
+};
+/***
+ * Questa funzione gestisce l'aggiornamento di un post nel database
+ */
+
+post.update = function(obj, callback){
+	models.Post.get(obj.params.id, function(err, p){
+		p.titolo       = obj.body.titolo;
+		p.testo        = obj.body.testo;
+		p.categoria_id = obj.body.categoria_id;
+		p.save(function(err){
+			if(err){
+				console.log(err);
+				return;
+			}
+			callback("Articolo aggiornato");
+		});
+	});
+};
+/***
+ * Questa funzione gestisce la rimozione di un post dal database
+ */
+
+post.del = function(obj, callback){
+	models.Post.get(obj.params.id, function(err, p){
+		p.remove(function(err){
+			if(err){
+				console.log(err);
+				return;
+			}
+			callback("post rimosso");
+		});
+	});
+};

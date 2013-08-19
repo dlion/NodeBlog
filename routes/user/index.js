@@ -3,16 +3,17 @@
 //
 
 var config = require('../../config'),
-    controller = require('../../controller/user');
+    controller = require('../../controller/user'),
+    user = exports;
 
 //
 // Login Page
 //
 
-exports.login = function(req, res) {
+user.login = function(req, res) {
     controller.isLogged(req, function(risultato) {
         if( risultato > 0) {
-            res.redirect('/dashboard');
+            res.redirect('/admin/dashboard');
         }
         else {
             res.render('login', { namesite: config.web.namesite, title: 'Login', errore: '' });
@@ -24,7 +25,7 @@ exports.login = function(req, res) {
 // SignIn Action and result to login page or redirect to dashboard
 //
 
-exports.signin = function(req, res) {
+user.signin = function(req, res) {
     controller.isLogged(req, function(risultato) {
         if( risultato > 0) {
             res.redirect('/dashboard');
@@ -46,7 +47,7 @@ exports.signin = function(req, res) {
 // SingOut Process
 // 
 
-exports.signout = function(req, res) {
+user.signout = function(req, res) {
     controller.isLogged(req, function(risultato) {
         if( risultato > 0) {
             controller.signout(req, function(resp) {
@@ -68,7 +69,7 @@ exports.signout = function(req, res) {
 // Dashboard
 // 
 
-exports.dashboard = function(req, res) {
+user.dashboard = function(req, res) {
     controller.isLogged(req, function(risultato) {
         if(risultato > 0) {
             res.render('admin/dashboard', { namesite: config.web.namesite, title: 'DashBoard' });

@@ -32,4 +32,30 @@ post.show = function (req, res) {
     	});
     });
 }
-
+/***
+ * This is the route function for the single
+ * post update, it returns a JSON obj
+ */
+post.update = function (req, res) {
+	controller.update(req, function(obj){
+		res.send({status:obj});
+	});
+};
+/***
+ * This is the route function for the single post
+ * delete
+ */
+post.del = function (req, res) {
+	controller.del(req, function(obj){
+		res.send({status:obj});
+	});
+};
+/***
+ * This is the route function for the single post
+ * create
+ */
+post.create = function (req, res) {
+	controller.create(req, function(obj){
+		res.send({status:obj});
+	});
+};
