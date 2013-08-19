@@ -50,15 +50,17 @@ app.use(function(error, req, res, next) {
 });
 
 
-/**
- * CRUD REST for post
- *
- */
-
+//
 // Index Page
+// 
+
 app.get('/', routesPost.list);
-// POST on root means add post
-app.post('/', routesPost.create);
+
+//
+// Create Article
+//
+
+app.post('/articolo/', routesPost.create);
 
 //
 // User Login
@@ -84,12 +86,23 @@ app.get('/logout', routesUser.signout);
 
 app.get('/dashboard', routesUser.dashboard);
 
-// Single post page
-app.get('/:id',routesPost.show);
-//PUT method on single post means update
-app.put('/:id', routesPost.update);
-//DELETE method on post id means delete post
-app.delete('/:id', routesPost.del);
+//
+// Show Article
+//
+
+app.get('/articolo/:id',routesPost.show);
+
+//
+// Update Article
+//
+
+app.put('/articolo/:id', routesPost.update);
+
+//
+// Delete Article
+//
+
+app.delete('/articolo/:id', routesPost.del);
 
 //
 // Server Startup
