@@ -24,14 +24,32 @@ post.list = function(req, res) {
  */
 
 post.show = function (req, res) {
-    controller.show(req, function(obj){
-    	res.render('post/show', {
-    		namesite: config.web.namesite,
-			title: obj.titolo,
-			arr: obj 
-    	});
+    controller.show(req, function(response,obj){
+    	if(response < 0) {
+            res.render('500', { 
+                namesite: config.web.namesite, 
+                title: '500 Fucking Error!', 
+                content: obj, 
+                error: '' 
+            });
+        }
+        else if(response == 0) {
+            res.render('404', { 
+                namesite: config.web.namesite, 
+                title: '404 Article Not Found!', 
+                content: obj 
+            });
+        }
+        else {
+            res.render('post/show', {
+                namesite: config.web.namesite,
+			    title: obj.titolo,
+			    arr: obj
+            });
+        }
     });
 }
+
 /***
  * This is the route function for the single
  * post update, it returns a JSON obj
