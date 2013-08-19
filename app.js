@@ -57,6 +57,7 @@ app.use(function(error, req, res, next) {
 
 // Index Page
 app.get('/', routesPost.list);
+app.get('/.json',routesPost.listJSON);
 // POST on root means add post
 app.post('/', routesPost.create);
 
@@ -83,6 +84,7 @@ app.get('/logout', routesUser.signout);
 // 
 
 app.get('/dashboard', routesUser.dashboard);
+app.get('/dashboard/:id', routesPost.formRender);
 
 // Single post page
 app.get('/:id',routesPost.show);
