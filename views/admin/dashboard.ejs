@@ -9,18 +9,22 @@
     <h1>Pannello di controllo</h1>
     <div id="content">
       <table>
+        <% if(numero > 0) { %>
         <tr>
           <td>Titolo</td>
           <td>Modifica</td>
           <td>Elimina</td>
         </tr>
-    	<% for (var i = 0; i < obj.length; i++){ %>
+            <% for (var i = 0; i < obj.length; i++){ %>
         <tr>
           <td><%= obj[i].titolo %></td>
           <td><a href="./dashboard/<%=obj[i].id %>">Modifica</a></td>
           <td><button class="delete" rel="<%= obj[i].id %>">Elimina</button>
         </tr>
-      <% } %>
+            <% } %>
+        <% } else { %>
+            <h3><%= obj %></h3>
+        <% } %>
        <tr><td><a href="./dashboard/new">Crea nuovo articolo</a></td></tr>
     </table>
     </div>

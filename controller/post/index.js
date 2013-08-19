@@ -1,6 +1,7 @@
-var config = require('../../config'),
-	models = require('../../models'),
-	post = exports;
+var config    = require('../../config'),
+	models    = require('../../models'),
+    utilities = require('../../utilities/function.js');
+	post      = exports;
 
 /*
  * Questa funzione gestisce la lista dei post, funziona anche
@@ -59,26 +60,31 @@ post.show = function(obj, callback){
     });
 };
 
-//da qui in poi vanno provate
+//
+// Create Article
+// 
 
-/***
- * Questa funzione gestisce l'immissione di un post nel database
-*/
 post.create = function(obj, callback){
-	models.Post.create({
-		titolo:        obj.body.titolo,
-		testo:         obj.body.testo,
-		categoria_id:  obj.body.categoria_id,
-		autore_id:     obj.session.id
-	}, function(err, item){
-		if(err){
-			console.log(err);
-			callback(err);
-			return;
-		}
-		callback("Post aggiunto");
-	});
+    if(obj.body.titolo || obj.body.testo || obj.body.categoria_id || obj.session.id) {
+        models.Post.create({
+            titolo: obj.body.titolo,
+		    testo: obj.body.testo,
+		    categoria_id: obj.body.categoria_id,
+		    autore_id: obj.session.id,
+            data: utilities.getTimestamp()
+        },function(err, item){
+            if(err){
+			    console.log(err);
+			    return callback(-1,err);
+		    }
+		    return callback(1,"Post aggiunto");
+        });
+    }
+    else {
+        return callback(0,"Complete All Field of the form!");
+    }
 };
+
 /***
  * Questa funzione gestisce l'aggiornamento di un post nel database
  */

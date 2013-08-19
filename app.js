@@ -37,7 +37,7 @@ app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
 
 app.use(function(req, res) {
     res.status(404);
-    res.render('404.ejs', { namesite: config.web.namesite, title: '404 Page Not Found!', content: 'Where are you going, motherfoca!?' });
+    res.render('404', { namesite: config.web.namesite, title: '404 Page Not Found!', content: 'Where are you going, motherfoca!?' });
 });
 
 //
@@ -46,7 +46,7 @@ app.use(function(req, res) {
 
 app.use(function(error, req, res, next) {
     res.status(500);
-    res.render('500.ejs', { namesite: config.web.namesite, title: '500 Fucking Error!', content: 'What do you do, motherfoca!?', error: error });
+    res.render('500', { namesite: config.web.namesite, title: '500 Fucking Error!', content: 'What do you do, motherfoca!?', error: error });
 });
 
 
@@ -61,6 +61,11 @@ app.get('/', routesPost.list);
 //
 
 app.post('/articolo/', routesPost.create);
+
+//
+// ??????????????
+// 
+
 app.get('/.json',routesPost.listJSON);
 
 //
@@ -86,6 +91,11 @@ app.get('/logout', routesUser.signout);
 // 
 
 app.get('/dashboard', routesPost.dashboard);
+
+//
+// ?????????????????
+// 
+
 app.get('/dashboard/:id', routesPost.formRender);
 
 //

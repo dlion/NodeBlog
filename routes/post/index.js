@@ -85,8 +85,8 @@ post.del = function (req, res) {
  * create
  */
 post.create = function (req, res) {
-	controller.create(req, function(obj){
-		res.send({status:obj});
+	controller.create(req, function(response,obj){
+        res.send( { status: obj } );
 	});
 };
 
@@ -99,7 +99,7 @@ post.formRender = function (req, res){
 	user.isLogged(req, function(logged){
 		if(logged > 0){
 			if(req.params.id === "new"){
-					res.render('post/form', {obj:null});
+					res.render('post/form', { obj: null } );
 			}
 			else{
 				controller.show(req, function (response, content){
@@ -129,9 +129,18 @@ post.dashboard = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
             controller.list(req, function(number,arr){
-            	res.render('admin/dashboard',{
-            		obj:arr
-            	});
+            	if(number > 0) {
+                    res.render('admin/dashboard',{
+                        numero: number,
+                        obj:arr
+                    });
+                }
+                else {
+                    res.render('admin/dashboard', {
+                        numero: number,
+                        obj: "Nessun Articolo Disponibile!"
+                    });
+                }
             });
         }
         else {
