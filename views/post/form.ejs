@@ -2,10 +2,11 @@
 <html>
   <head>
       <title>Pannello di controllo</title>
+      <base href="http://localhost:3000/"></base>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Aggiungi post</h1>
+    <h1><%= (obj === null) ? 'Aggiungi post' : 'Modifica post' %></h1>
     <div id="container">
     	<h2>Titolo</h2>
       <% if(obj === null) { %>
@@ -23,7 +24,22 @@
           <% } %>
       <h2>Categoria</h2>
       <!-- get a list of category, need implementation -->
-
+      <%  if(obj === null){ %>
+             <input id="categoria_id"  />
+          <% }
+          else{ %>
+              <input id="categoria_id" type="hidden" value="<%= obj.categoria_id %>" />
+          <% } %>
+          <br />
+      <%  if(obj === null){ %>
+             <button id="create">Aggiungi articolo</button>
+          <% }
+          else{ %>
+              <input id="id" type="hidden" value='<%= obj.id%>'/>
+              <button id="modify">modifica articolo</button>
+          <% } %>
     </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src='./javascript/pannello.js'></script>
   </body>
 </html>

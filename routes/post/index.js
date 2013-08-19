@@ -102,10 +102,16 @@ post.formRender = function (req, res){
 					res.render('post/form', {obj:null});
 			}
 			else{
-				controller.show(req, function (arr){
-                    res.render('post/form', {
-                        obj: arr
-                    });
+				controller.show(req, function (response, content){
+					if(response > 0){
+						res.render('post/form', {
+                       		obj: content
+                    	});
+					}
+					else{
+						res.status('404');
+					}
+                    
 				});
 			}
 		}

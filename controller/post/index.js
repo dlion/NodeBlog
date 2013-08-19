@@ -46,12 +46,12 @@ post.show = function(obj, callback){
         // Se il post esiste
         if(count > 0) {
             models.Post.get(obj.params.id,function (err, resp) {
-			if(err){
-				console.log(err);
-				return;
-			}
-	        callback(1,resp);
-            });
+				if(err){
+					console.log(err);
+					return;
+				}
+		        callback(1,resp);
+	        });
 		}
         else {
             return callback(0,"L'articolo non esiste!");
@@ -101,6 +101,7 @@ post.update = function(obj, callback){
  * Questa funzione gestisce la rimozione di un post dal database
  */
 
+//funziona
 post.del = function(obj, callback){
 	models.Post.get(obj.params.id, function(err, p){
 		p.remove(function(err){
