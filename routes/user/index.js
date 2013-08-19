@@ -13,7 +13,7 @@ var config = require('../../config'),
 user.login = function(req, res) {
     controller.isLogged(req, function(risultato) {
         if( risultato > 0) {
-            res.redirect('/admin/dashboard');
+            res.redirect('/dashboard');
         }
         else {
             res.render('login', { namesite: config.web.namesite, title: 'Login', errore: '' });
