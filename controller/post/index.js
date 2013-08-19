@@ -34,14 +34,28 @@ post.list = function(obj, callback){
 */
 
 post.show = function(obj, callback){
-	models.Post.get(obj.params.id,function (err, resp) {
+    if(obj.params.id == null) {
+        return callback(-1, "Impossibile identificare l'id dell'articolo");
+    }
+    models.Post.count( { id: obj.params.id }, function(err, count) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        // Se il post esiste
+        if(count > 0) {
+            models.Post.get(obj.params.id,function (err, resp) {
 			if(err){
 				console.log(err);
 				return;
 			}
-	        callback(resp);
+	        callback(1,resp);
+            });
 		}
-	);
+        else {
+            return callback(0,"L'articolo non esiste!");
+        }
+    });
 };
 
 //da qui in poi vanno provate
