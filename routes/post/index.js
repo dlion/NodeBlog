@@ -29,6 +29,7 @@ post.listJSON = function (req, res){
 		res.send(obj);
 	});
 };
+
 /***
  * This is the route function for the single pages of the blog
  * this handle the single post
@@ -88,8 +89,6 @@ post.create = function (req, res) {
 		res.send({status:obj});
 	});
 };
-<<<<<<< HEAD
-=======
 
 /***
  * This function render the form for updating or
@@ -104,15 +103,14 @@ post.formRender = function (req, res){
 			}
 			else{
 				controller.show(req, function (arr){
-					res.render('post/form', 
-						{obj:arr});
+                    res.render('post/form', {
+                        obj: arr
+                    });
 				});
 			}
 		}
 		else{
-			res.render('login', { namesite: config.web.namesite, title: 'Login', errore: '' });
+			res.redirect('/login');
 		}
 	});
-	
 };
->>>>>>> origin/master

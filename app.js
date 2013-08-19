@@ -55,18 +55,13 @@ app.use(function(error, req, res, next) {
 // 
 
 app.get('/', routesPost.list);
-<<<<<<< HEAD
 
 //
 // Create Article
 //
 
 app.post('/articolo/', routesPost.create);
-=======
 app.get('/.json',routesPost.listJSON);
-// POST on root means add post
-app.post('/', routesPost.create);
->>>>>>> origin/master
 
 //
 // User Login
