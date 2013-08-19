@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title><%= namesite %> - <%= title %></title>
+      <title>Pannello di controllo</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
+    <h1>Aggiungi post</h1>
     <div id="container">
     	<h2>Titolo</h2>
-      <% if(obj.titolo === null) { 
-            input_field_tag('titolo');
-        }
-        else {
-            input_field_tag('titolo', obj.titolo);
-        } %>
+      <% if(obj === null) { %>
+            <input id='titolo' />
+       <% }
+        else { %>
+            <input id='titolo' value='<%= obj.titolo %>' />
+       <% } %>
       <h2>Testo</h2>
-      <%  if(obj.test === null){
-             text_area_tag('testo')
-          }
-          else{
-              text_area_tag('testo', obj.testo);
-          }
-        
-        %>
+      <%  if(obj === null){ %>
+             <textarea id="testo"></textarea>
+          <% }
+          else{ %>
+              <textarea id="testo"><%= obj.testo %></textarea>
+          <% } %>
       <h2>Categoria</h2>
       <!-- get a list of category, need implementation -->
 
