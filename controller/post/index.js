@@ -1,6 +1,6 @@
 var config    = require('../../config'),
 	models    = require('../../models'),
-    utilities = require('../../utilities/function.js');
+    utilities = require('../../utilities/function.js'),
 	post      = exports;
 
 /*
@@ -65,7 +65,6 @@ post.show = function(obj, callback){
 // 
 
 post.create = function(obj, callback){
-    if(obj.body.titolo || obj.body.testo || obj.body.categoria_id || obj.session.id) {
         models.Post.create({
             titolo: obj.body.titolo,
 		    testo: obj.body.testo,
@@ -79,10 +78,6 @@ post.create = function(obj, callback){
 		    }
 		    return callback(1,"Post aggiunto");
         });
-    }
-    else {
-        return callback(0,"Complete All Field of the form!");
-    }
 };
 
 /***
@@ -90,38 +85,49 @@ post.create = function(obj, callback){
  */
 
 post.update = function(obj, callback){
-	models.Post.get(obj.params.id, function(err, p){
-		p.titolo       = obj.body.titolo;
-		p.testo        = obj.body.testo;
-		p.categoria_id = obj.body.categoria_id;
-		p.save(function(err){
-			if(err){
-				console.log(err);
-				return;
-			}
-			callback("Articolo aggiornato");
-		});
-	});
+    models.Post.count( { id: obj.params.id }, function(err, numero) {
+        if(numero > 0) {
+            models.Post.get(obj.params.id, function(err, p){
+                p.titolo       = obj.body.titolo;
+                p.testo        = obj.body.testo;
+                p.categoria_id = obj.body.categoria_id;
+                p.save(function(err){
+                    if(err){
+                        console.log(err);
+                        return;
+			        }
+                    return callback("Articolo aggiornato");
+		        });
+	        });
+        }
+        else {
+            return callback("Articolo non trovato");
+        }
+    });
 };
-/***
- * Questa funzione gestisce la rimozione di un post dal database
- */
+
+//
+// Cancella un Articolo
+//
 
 post.del = function(obj, callback){
-	models.Post.get(obj.params.id, function(err, p){
-		p.remove(function(err){
-			if(err){
-				console.log(err);
-				return;
-			}
-			callback("post rimosso");
-		});
-	});
+    models.Post.count( { id: obj.params.id }, function(err, conto) {
+        if(conto > 0) {
+            models.Post.get(obj.params.id, function(err, articolo){
+                articolo.remove(function(err){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+                    return callback("Articolo rimosso correttamente");
+                });
+            });
+        }
+        else {
+            return callback("L'articolo non esiste!");
+        }
+    });
 };
-
-/***
- * Questa funzione gestisce la rimozione di un post dal database
- */
 
 post.byCat = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;

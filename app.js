@@ -57,32 +57,10 @@ app.use(function(error, req, res, next) {
 app.get('/', routesPost.list);
 
 //
-// List articles by categories
-app.get('/cat/:cat', routesPost.byCat);
-
-//
-//
-// Create Article
-//
-
-app.post('/articolo/', routesPost.create);
-
-//
-// ??????????????
-// 
-
-app.get('/.json',routesPost.listJSON);
-
-//
-// User Login
+// User Login form && User Signin Process
 //
 
 app.get('/login', routesUser.login);
-
-//
-// User Signin
-//
-
 app.post('/login', routesUser.signin);
 
 //
@@ -92,16 +70,11 @@ app.post('/login', routesUser.signin);
 app.get('/logout', routesUser.signout);
 
 //
-// Dashboard
+// Articles Create form && Article Create Process
 // 
 
-app.get('/dashboard', routesPost.dashboard);
-
-//
-// ?????????????????
-// 
-
-app.get('/dashboard/:id', routesPost.formRender);
+app.get('/articolo/new', routesPost.showNew);
+app.post('/articolo/new', routesPost.createNew);
 
 //
 // Show Article
@@ -110,9 +83,10 @@ app.get('/dashboard/:id', routesPost.formRender);
 app.get('/articolo/:id',routesPost.show);
 
 //
-// Update Article
-//
+// Articles Modify form && Article Modify Process
+// 
 
+app.get('/articolo/:id/update', routesPost.modify);
 app.put('/articolo/:id', routesPost.update);
 
 //
@@ -120,6 +94,23 @@ app.put('/articolo/:id', routesPost.update);
 //
 
 app.delete('/articolo/:id', routesPost.del);
+
+//
+// Dashboard
+// 
+
+app.get('/dashboard', routesPost.dashboard);
+
+//
+// List articles by categories
+//app.get('/cat/:cat', routesPost.byCat);
+
+
+//
+// ??????????????
+// 
+
+//app.get('/.json',routesPost.listJSON);
 
 //
 // Server Startup

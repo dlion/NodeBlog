@@ -1,74 +1,85 @@
 var Pannello = function() {};
 
-/***
- * Questa funzione cancella i post
- */
+
+//
+// Questa funzione gestisce la creazione dei post
+//
+
+Pannello.prototype.create = function(){
+	var _titolo = $("#titolo").val(),
+        _testo  = $("#testo").val(),
+        _categoria_id = $("#categoria_id").val();
+    //
+    //Add an article
+	//
+    
+    $.post('/articolo/new', {
+        titolo: _titolo,
+		testo:  _testo,
+		categoria_id: _categoria_id
+    }, function(res) {
+        alert(res);
+        window.location.replace("/dashboard");
+    });
+};
+
+//
+// Questa funzione gestisce la modifica dei post
+//
+
+Pannello.prototype.modify = function(){
+	var _titolo = $("#titolo").val(),
+        _testo = $("#testo").val(),
+        _categoria_id = $("#categoria_id").val(),
+        _post_id = $("#id_post").val();
+
+    //
+    // Modify an Article
+    //
+
+	$.ajax({
+        url: '/articolo/'+_post_id,
+		type: 'PUT',
+        data: {
+			titolo: 	  _titolo,
+			testo:  	  _testo,
+			categoria_id: _categoria_id,
+			id: 		  _post_id
+		}, success: function (res) {
+			alert(res);
+            window.location.replace("/dashboard");
+		}
+	});
+};
+
 Pannello.prototype.del = function(id) {
 	$.ajax({
     	url: '/articolo/'+id,
     	type: 'DELETE',
     	success: function(result) {
-        	alert("Articolo rimosso con successo");
-        	document.location.reload(true);
+        	alert(result);
+            window.location.replace("/dashboard");
     	}
 	});
 };
 
-/***
- * Questa funzione gestisce la creazione dei post
- */
-Pannello.prototype.create = function(){
-	var _titolo 			= $("#titolo").val();
-	var _testo  			= $("#testo").val();
-	var _categoria_id	= $("#categoria_id").val();
-	$.post('/articolo/',
-		{
-			titolo: 	  _titolo,
-			testo:  	  _testo,
-			categoria_id: _categoria_id
-		}, 
-		function (res) {
-			alert("Articolo inserito correttamente");
-		});
-}
-
-/***
- * Questa funzione gestisce la creazione dei post
- */
-Pannello.prototype.modify = function(){
-	var _titolo 			= $("#titolo").val();
-	var _testo  			= $("#testo").val();
-	var _categoria_id		= $("#categoria_id").val();
-	var _id 				= $("#id").val();
-
-	$.ajax({
-		url: '/articolo/'+_id,
-		type: 'PUT',
-		data: {
-			titolo: 	  _titolo,
-			testo:  	  _testo,
-			categoria_id: _categoria_id,
-			id: 		  _id
-		}, 
-		success: function (res) {
-			alert("Articolo modificato correttamente");
-		}
-	});
-};
-
-
-//gestisce la parte 
+//
+// Events on pages
+// 
 
 var p = new Pannello();
 
 $(document).ready(function () {
-	$('.delete').click(function(){
-		p.del($(this).attr('rel'));
-	});
-	$('#create').click(function(){
+    
+    $('#create').click(function(){
 		p.create();
 	});
-	$('#modify').click(function(){
+	
+    $('#modify').click(function(){
 		p.modify();
+    });
+    
+	$('.delete').click(function(){
+		p.del($(this).attr('rel'));
 	});
 });

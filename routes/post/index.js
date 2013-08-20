@@ -1,12 +1,12 @@
 var config       = require ('../../config/'),
     controller   = require ('../../controller/post'),
     user		 = require('../../controller/user'),
+    cate         = require('../../controller/category'),
     post         = exports;
 
-/*
- * This is the route function for the index of the blog
- * this handle the cronological list of all the posts
- */
+//
+// Lista gli articoli
+//
 
 post.list = function (req, res) {
 	controller.list(req, function(number,obj){
@@ -20,21 +20,10 @@ post.list = function (req, res) {
 	});
 };
 
-/***
- * This function is the JSON api for post listing
- *
- */
 
-post.listJSON = function (req, res){
-	controller.list(req, function (number, obj){
-		res.send(obj);
-	});
-};
-
-/***
- * This is the route function for the single pages of the blog
- * this handle the single post
- */
+//
+// Ritorna le info di un singolo Articolo
+//
 
 post.show = function (req, res) {
     controller.show(req, function(response,obj){
@@ -66,66 +55,126 @@ post.show = function (req, res) {
     });
 }
 
-/***
- * This is the route function for the single
- * post update, it returns a JSON obj
- */
+//
+// Show Form to create a new Article
+// 
+
+post.showNew = function(req, res) {
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            res.render('post/new', {
+                namesite: config.web.namesite,
+                title: 'Aggiungi Articolo',
+                base: config.web.base
+            });
+        }
+        else {
+            res.redirect('/login');
+        }
+    });
+};
+
+//
+// Create a new Article
+//
+
+post.createNew = function(req, res) {
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            if(req.body.titolo && req.body.testo && req.body.categoria_id) {
+                controller.create(req, function(response, risultato) {
+                    res.send(risultato);
+                });
+            }
+            else {
+                res.send("Complete all fields of form, please!");
+            }
+       }
+        else {
+            res.redirect('/login');
+        }
+    });
+};
+
+//
+// Show Form to modify Article
+// 
+
+post.modify = function(req, res) {
+    if(req.params.id) {
+        user.isLogged(req, function(risultato) {
+            if(risultato > 0) {
+                controller.show(req, function(resp, info) {
+                    if(resp > 0) {
+                        res.render('post/modify', {
+                            namesite: config.web.namesite,
+                            title: 'Modifica Articolo',
+                            base: config.web.base,
+                            data: info
+                        });
+                    }
+                    else {
+                        res.render('404', { 
+                            namesite: config.web.namesite, 
+                            base: config.web.base,
+                            title: '404 Article Not Found!', 
+                            content: info
+                        });
+                    }
+                });
+            }
+            else {
+                res.redirect('/login');
+            }
+        });
+    }
+    else {
+        res.render('500', {
+            namesite: config.web.namesite,
+            base: config.web.base, 
+            title: '500 Fucking Error!', 
+            content: info, 
+            error: '' 
+        });
+    }
+};
+
+//
+// Update and Article
+//
+
 post.update = function (req, res) {
-	controller.update(req, function(obj){
-		res.send({status:obj});
-	});
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            if(req.body.titolo && req.body.testo && req.body.categoria_id) {
+                controller.update(req, function(obj){
+                    res.send(obj);
+	            });
+            }
+            else {
+                res.send("Complete all field of form, please!");
+            }
+        }
+        else {
+            res.redirect('/login');
+        }
+    });
 };
-/***
- * This is the route function for the single post
- * delete
- */
+
+//
+// Delete a single Articles
+//
+
 post.del = function (req, res) {
-	controller.del(req, function(obj){
-		res.send({status:obj});
-	});
-};
-/***
- * This is the route function for the single post
- * create
- */
-post.create = function (req, res) {
-	controller.create(req, function(response,obj){
-        res.send( { status: obj } );
-	});
-};
-
-/***
- * This function render the form for updating or
- * create a Post
- */
-
-post.formRender = function (req, res){
-	user.isLogged(req, function(logged){
-		if(logged > 0){
-			if(req.params.id === "new"){
-					res.render('post/form', { 
-                        obj: null,
-                        base: config.web.base
-                    });
-			}
-			else{
-				controller.show(req, function (response, content){
-					if(response > 0){
-						res.render('post/form', {
-                       		obj: content,
-                            base: config.web.base
-                    	});
-					}
-					else{
-						res.status('404');
-					}
-                    
-				});
-			}
-		}
-		else{
-			res.redirect('/login');
-		}
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            controller.del(req, function(obj){
+		    res.send(obj);
+            });
+        }
+        else {
+            res.redirect('/login');
+        }
 	});
 };
 
@@ -159,6 +208,10 @@ post.dashboard = function(req, res) {
     });
 };
 
+//
+// Show Post by Category
+//
+
 post.byCat = function(req, res){
     controller.byCat(req, function(number,obj){
         res.render('post/index',  {
@@ -170,3 +223,13 @@ post.byCat = function(req, res){
         });
     });
 }
+
+//
+// Per le API
+//
+
+post.listJSON = function (req, res){
+	controller.list(req, function (number, obj){
+		res.send(obj);
+	});
+};
