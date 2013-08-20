@@ -57,6 +57,11 @@ app.use(function(error, req, res, next) {
 app.get('/', routesPost.list);
 
 //
+// List articles by categories
+app.get('/cat/:cat', routesPost.byCat);
+
+//
+//
 // Create Article
 //
 

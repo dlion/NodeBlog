@@ -107,7 +107,6 @@ post.update = function(obj, callback){
  * Questa funzione gestisce la rimozione di un post dal database
  */
 
-//funziona
 post.del = function(obj, callback){
 	models.Post.get(obj.params.id, function(err, p){
 		p.remove(function(err){
@@ -119,3 +118,27 @@ post.del = function(obj, callback){
 		});
 	});
 };
+
+/***
+ * Questa funzione gestisce la rimozione di un post dal database
+ */
+
+post.byCat = function(obj, callback){
+	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
+    
+	models.Post.pages(function(err, articoli) {
+        if(articoli > 0) {
+            models.Post.page(page).find({categoria_id: obj.params.cat}).order('id', 'Z').run(function(err, resp){
+		        //error reporting
+		        if(err) {
+			        console.log(err);
+			        return;
+		        }
+		        return callback(articoli, resp);
+	        });
+        }
+        else {
+            return callback(articoli, "Nessun Articolo Disponibile!");
+        }
+    });
+}

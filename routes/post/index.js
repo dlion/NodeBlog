@@ -148,3 +148,14 @@ post.dashboard = function(req, res) {
         }
     });
 };
+
+post.byCat = function(req, res){
+    controller.byCat(req, function(number,obj){
+        res.render('post/index',  {
+            namesite: config.web.namesite,
+            title: config.web.namesite,
+            numero: number,
+            arr: obj 
+        });
+    });
+}
