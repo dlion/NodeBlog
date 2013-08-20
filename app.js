@@ -70,6 +70,13 @@ app.post('/login', routesUser.signin);
 app.get('/logout', routesUser.signout);
 
 //
+// json api for articles
+// 
+
+app.get('/articolo.json',routesPost.listJSON);
+
+
+//
 // Articles Create form && Article Create Process
 // 
 
@@ -103,14 +110,8 @@ app.get('/dashboard', routesPost.dashboard);
 
 //
 // List articles by categories
-//app.get('/cat/:cat', routesPost.byCat);
-
-
 //
-// ??????????????
-// 
-
-//app.get('/.json',routesPost.listJSON);
+app.get('/cat/:cat', routesPost.byCat);
 
 //
 // Server Startup
