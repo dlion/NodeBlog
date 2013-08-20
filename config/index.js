@@ -26,6 +26,7 @@ config.web.admin = ['DLion','unsign3d'];
 config.web.secret_cookie = "NodeBlogIsFuckingAwesome";
 config.web.secret_session = "NodeBlogIsMoreFuckinAwesomeThanYou";
 config.web.secret_salt = "NodeBlogSaltPass";
+config.web.base = 'http://localhost:3000';
 //
 // Exports
 //
