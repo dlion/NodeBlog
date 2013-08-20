@@ -14,7 +14,7 @@ post.list = function(obj, callback){
     
 	models.Post.pages(function(err, articoli) {
         if(articoli > 0) {
-            models.Post.page(page).run(function(err, resp){
+            models.Post.page(page).order('id', 'Z').run(function(err, resp){
 		        //error reporting
 		        if(err) {
 			        console.log(err);
