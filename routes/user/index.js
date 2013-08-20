@@ -16,7 +16,13 @@ user.login = function(req, res) {
             res.redirect('/dashboard');
         }
         else {
-            res.render('login', { namesite: config.web.namesite, title: 'Login', errore: '' });
+            res.render('login', 
+                { 
+                    namesite: config.web.namesite, 
+                    title: 'Login', 
+                    errore: '',
+                    base: config.web.base 
+                });
         }
     });
 };
@@ -36,7 +42,13 @@ user.signin = function(req, res) {
                     res.redirect('/dashboard');
                 }
                 else {
-                    res.render('login', { namesite: config.web.namesite, title: 'Login', errore: stringa });
+                    res.render('login', 
+                        { 
+                            namesite: config.web.namesite, 
+                            title: 'Login', 
+                            errore: stringa,
+                            base: config.web.base,
+                        });
                 }
             });
         }

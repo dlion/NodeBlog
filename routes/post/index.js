@@ -14,6 +14,7 @@ post.list = function (req, res) {
 			namesite: config.web.namesite,
 			title: config.web.namesite,
             numero: number,
+            base: config.web.base,
 			arr: obj 
 		});
 	});
@@ -39,7 +40,8 @@ post.show = function (req, res) {
     controller.show(req, function(response,obj){
     	if(response < 0) {
             res.render('500', { 
-                namesite: config.web.namesite, 
+                namesite: config.web.namesite,
+                base: config.web.base, 
                 title: '500 Fucking Error!', 
                 content: obj, 
                 error: '' 
@@ -48,6 +50,7 @@ post.show = function (req, res) {
         else if(response == 0) {
             res.render('404', { 
                 namesite: config.web.namesite, 
+                base: config.web.base,
                 title: '404 Article Not Found!', 
                 content: obj 
             });
@@ -56,6 +59,7 @@ post.show = function (req, res) {
             res.render('post/show', {
                 namesite: config.web.namesite,
 			    title: obj.titolo,
+                base: config.web.base,
 			    arr: obj
             });
         }
@@ -105,7 +109,8 @@ post.formRender = function (req, res){
 				controller.show(req, function (response, content){
 					if(response > 0){
 						res.render('post/form', {
-                       		obj: content
+                       		obj: content,
+                            base: config.web.base
                     	});
 					}
 					else{
@@ -132,12 +137,14 @@ post.dashboard = function(req, res) {
             	if(number > 0) {
                     res.render('admin/dashboard',{
                         numero: number,
+                        base: config.web.base,
                         obj:arr
                     });
                 }
                 else {
                     res.render('admin/dashboard', {
                         numero: number,
+                        base: config.web.base,
                         obj: "Nessun Articolo Disponibile!"
                     });
                 }
@@ -155,6 +162,7 @@ post.byCat = function(req, res){
             namesite: config.web.namesite,
             title: config.web.namesite,
             numero: number,
+            base: config.web.base,
             arr: obj 
         });
     });
