@@ -103,7 +103,10 @@ post.formRender = function (req, res){
 	user.isLogged(req, function(logged){
 		if(logged > 0){
 			if(req.params.id === "new"){
-					res.render('post/form', { obj: null } );
+					res.render('post/form', { 
+                        obj: null,
+                        base: config.web.base
+                    });
 			}
 			else{
 				controller.show(req, function (response, content){
