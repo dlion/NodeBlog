@@ -217,12 +217,12 @@ post.byCat = function(req, res){
         res.render('post/index',  {
             namesite: config.web.namesite,
             title: config.web.namesite,
-            numero: number,
             base: config.web.base,
+            numero: number,
             arr: obj 
         });
     });
-}
+};
 
 //
 // Per le API

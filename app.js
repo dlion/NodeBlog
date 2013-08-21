@@ -111,6 +111,7 @@ app.get('/dashboard', routesPost.dashboard);
 //
 // List articles by categories
 //
+
 app.get('/cat/:cat', routesPost.byCat);
 
 //

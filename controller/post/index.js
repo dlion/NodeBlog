@@ -80,9 +80,9 @@ post.create = function(obj, callback){
         });
 };
 
-/***
- * Questa funzione gestisce l'aggiornamento di un post nel database
- */
+//
+// Update Article
+//
 
 post.update = function(obj, callback){
     models.Post.count( { id: obj.params.id }, function(err, numero) {
@@ -129,6 +129,10 @@ post.del = function(obj, callback){
     });
 };
 
+//
+// Articoli per Categorie
+//
+
 post.byCat = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
     
@@ -147,4 +151,4 @@ post.byCat = function(obj, callback){
             return callback(articoli, "Nessun Articolo Disponibile!");
         }
     });
-}
+};
