@@ -32,3 +32,19 @@ category.list = function(callback) {
     });
 };
 
+//
+// Add Category
+//
+
+category.add = function(req, callback) {
+    models.Categorie.create( {
+        title: req.body.titolo,
+        descr: req.body.descr
+    },function(err, item) {
+        if(err) {
+            console.log(err);
+            return callback(-1, err);
+        }
+        return callback(1,"Categoria aggiunta");
+    });
+};
