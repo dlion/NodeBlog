@@ -3,6 +3,26 @@ var config = require ('../../config/'),
     user = require('../../controller/user'),
     category = exports;
 
+
+// 
+// Show Form to create a new Category
+// 
+
+category.showNew = function(req, res) {
+    user.isLogged(req, function(risultato) {
+        if(risultato > 0) {
+            res.render('category/new', {
+                namesite: config.web.namesite,
+                title: 'Aggiungi Categoria',
+                base: config.web.base
+            });
+        }
+        else {
+            res.redirect('/login');
+        }
+    });
+};
+
 //
 // Add a new Category
 //
