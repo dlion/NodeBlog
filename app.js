@@ -5,18 +5,35 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
+    
+    //
     // Configuration file
+    //
+    
     config = require('./config'),
-    // Index Routes
-    routes = require('./routes'),
-    //User Routes
-    routesUser = require('./routes/user'),
-    //Post Routes
-    routesPost = require('./routes/post'),
-    //Category Routes
-    routesCategory = require('./routes/category');
-
-var app = express();
+    //
+    // Login Modularized
+    //
+    
+    login = require('./lib/login'),
+    
+    //
+    // Articles Modularized
+    //
+    
+    articolo = require('./lib/articolo'),
+    
+    //
+    // Category Modularized
+    //
+    
+    category = require('./lib/category'),
+    
+    //
+    //  Express app
+    //  
+    
+    app = express();
 
 // all environments
 app.set('port', config.web.port);
@@ -32,6 +49,24 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
+
+//
+// Middleware per il login dell'utente
+//
+
+app.use(login);
+
+//
+// Middleware per gli articoli
+//
+
+app.use(articolo);
+
+//
+// Middleware per le categorie
+//
+
+app.use(category);
 
 //
 // 404 Page Not Found Error
@@ -50,80 +85,6 @@ app.use(function(error, req, res, next) {
     res.status(500);
     res.render('500', { namesite: config.web.namesite, title: '500 Fucking Error!', content: 'What do you do, motherfoca!?', error: error });
 });
-
-
-//
-// Index Page
-// 
-
-app.get('/', routesPost.list);
-
-//
-// User Login form && User Signin Process
-//
-
-app.get('/login', routesUser.login);
-app.post('/login', routesUser.signin);
-
-//
-// User Signout
-// 
-
-app.get('/logout', routesUser.signout);
-
-//
-// json api for articles
-// 
-
-app.get('/articolo.json',routesPost.listJSON);
-
-
-//
-// Articles Create form && Article Create Process
-// 
-
-app.get('/articolo/new', routesPost.showNew);
-app.post('/articolo/new', routesPost.createNew);
-
-//
-// Articles Modify form && Article Modify Process
-// 
-
-app.get('/articolo/:id/update', routesPost.modify);
-app.put('/articolo/:id', routesPost.update);
-
-//
-// Delete Article
-//
-
-app.delete('/articolo/:id', routesPost.del);
-
-//
-// Show Article
-//
-
-app.get('/articolo/:id',routesPost.show);
-
-//
-// List articles by categories
-//
-
-app.get('/articolo/cat/:cat', routesPost.byCat);
-
-//
-// Dashboard
-// 
-
-app.get('/dashboard', routesPost.dashboard);
-
-
-//
-// Category Create Form && Category Create Process
-// 
-
-app.get('/cat/new', routesCategory.showNew);
-app.post('/cat/new', routesCategory.add);
-
 
 //
 // Server Startup
