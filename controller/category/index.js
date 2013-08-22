@@ -38,7 +38,7 @@ category.list = function(callback) {
 
 category.add = function(req, callback) {
     models.Categorie.create( {
-        title: req.body.titolo,
+        title: req.body.title,
         descr: req.body.descr
     },function(err, item) {
         if(err) {
