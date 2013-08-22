@@ -28,6 +28,12 @@ var express = require('express'),
     //
     
     category = require('./lib/category'),
+
+    //
+    // Error Modularized
+    //
+
+    error = require('./lib/error'),
     
     //
     //  Express app
@@ -35,7 +41,10 @@ var express = require('express'),
     
     app = express();
 
-// all environments
+//    
+// All environments
+//
+
 app.set('port', config.web.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -69,22 +78,10 @@ app.use(articolo);
 app.use(category);
 
 //
-// 404 Page Not Found Error
-//
+// Middleware per gli errori
+// 
 
-app.use(function(req, res) {
-    res.status(404);
-    res.render('404', { namesite: config.web.namesite, title: '404 Page Not Found!', content: 'Where are you going, motherfoca!?' });
-});
-
-//
-// 500 Internal Server Error
-//
-
-app.use(function(error, req, res, next) {
-    res.status(500);
-    res.render('500', { namesite: config.web.namesite, title: '500 Fucking Error!', content: 'What do you do, motherfoca!?', error: error });
-});
+app.use(error);
 
 //
 // Server Startup
