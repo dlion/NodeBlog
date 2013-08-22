@@ -138,14 +138,21 @@ post.byCat = function(obj, callback){
     
 	models.Post.pages(function(err, articoli) {
         if(articoli > 0) {
-            models.Post.page(page).find({categoria_id: obj.params.cat}).order('id', 'Z').run(function(err, resp){
-		        //error reporting
-		        if(err) {
-			        console.log(err);
-			        return;
-		        }
-		        return callback(articoli, resp);
-	        });
+            models.Post.count( { categoria_id: obj.params.cat }, function(err, count) {
+                if(count > 0) {
+                    models.Post.page(page).find( { categoria_id: obj.params.cat } ).order('id', 'Z').run(function(err, resp){
+                        //error reporting
+		                 if(err) {
+			                console.log(err);
+			                return;
+		                }
+		                return callback(count, resp);
+                    });
+                }
+                else {
+                    callback(count,"Nessun articolo per questa categoria!");
+                }
+            });
         }
         else {
             return callback(articoli, "Nessun Articolo Disponibile!");

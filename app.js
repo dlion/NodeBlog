@@ -105,6 +105,12 @@ app.delete('/articolo/:id', routesPost.del);
 app.get('/articolo/:id',routesPost.show);
 
 //
+// List articles by categories
+//
+
+app.get('/articolo/cat/:cat', routesPost.byCat);
+
+//
 // Dashboard
 // 
 
@@ -118,11 +124,6 @@ app.get('/dashboard', routesPost.dashboard);
 app.get('/cat/new', routesCategory.showNew);
 app.post('/cat/new', routesCategory.add);
 
-//
-// List articles by categories
-//
-
-app.get('/cat/:cat', routesPost.byCat);
 
 //
 // Server Startup
