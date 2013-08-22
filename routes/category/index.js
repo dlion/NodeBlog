@@ -24,6 +24,46 @@ category.showNew = function(req, res) {
 };
 
 //
+// Show Form to update a category
+//
+
+category.showUpdate = function (req, res) {
+    user.isLogged(req, function(risultato){
+        if(risultato > 0){
+            controllerCategory.show(req, function(respo, risu){
+                res.render('category/update', {
+                    namesite: config.web.namesite,
+                    title: 'Aggiungi Categoria',
+                    base: config.web.base
+                });
+            });
+        }
+        else{
+            res.redirect('/login');
+        }
+    });
+};
+
+//
+// List the category options for the dashboard
+//
+
+category.list = function (req, res){
+    user.isLogged(req, function (risultato){
+        if(risultato > 0){
+            controllerCategory.list(function(callback){
+                res.render('admin/categories', {
+                    namesite: config.web.namesite,
+                    title: 'Aggiungi Categoria',
+                    base: config.web.base
+                });
+            });
+        }
+    });
+};
+
+
+//
 // Add a new Category
 //
 
@@ -44,3 +84,43 @@ category.add = function(req, res) {
         }
     });
 };
+
+//
+// Update a category
+//
+
+category.update = function (req, res){
+    user.isLogged(req, function(result){
+        if (result > 0){
+            if (req.body.title && req.body.descr){
+                controllerCategory.update(req, function (resp, result){
+                    res.send(result);
+                });
+            }
+            else{
+               res.send("Complete all fields of form, please!"); 
+            }
+        }
+        else{
+            res.redirect('/login');
+        }
+    });
+}
+
+
+//
+// Delete a category
+//
+
+category.del = function (req, res){
+    user.isLogged(req, function(result){
+        if(result > 0){
+            controllerCategory.del(req, function (resp, result){
+                res.send(result);
+            });
+        }
+        else{
+            res.redirect('/login');
+        }
+    });
+}

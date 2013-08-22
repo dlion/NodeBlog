@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Pannello di controllo</title>
+      <base href="<%= base %>" />    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Pannello di controllo</h1>
+    <div id="content">
+      <table>
+        <% if(numero > 0) { %>
+        <tr>
+          <td>Titolo</td>
+          <td>Modifica</td>
+          <td>Elimina</td>
+        </tr>
+            <% for (var i = 0; i < obj.length; i++){ %>
+        <tr>
+          <td><%= obj[i].titolo %></td>
+          <td><a href="./articolo/<%=obj[i].id %>/update">Modifica</a></td>
+          <td><button class="delete" rel="<%= obj[i].id %>">Elimina</button>
+        </tr>
+            <% } %>
+        <% } else { %>
+            <h3><%= obj %></h3>
+        <% } %>
+        <tr><td><a href="articolo/new">Crea nuovo articolo</a></td></tr>
+        <tr><td><a href="cat/new">Aggiungi Categoria</a></td></tr>
+    </table>
+    </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src='/javascript/pannello.js'></script>
+  </body>
+</html>
