@@ -12,7 +12,9 @@ var express = require('express'),
     //User Routes
     routesUser = require('./routes/user'),
     //Post Routes
-    routesPost = require('./routes/post');
+    routesPost = require('./routes/post'),
+    //Category Routes
+    routesCategory = require('./routes/category');
 
 var app = express();
 
@@ -84,12 +86,6 @@ app.get('/articolo/new', routesPost.showNew);
 app.post('/articolo/new', routesPost.createNew);
 
 //
-// Show Article
-//
-
-app.get('/articolo/:id',routesPost.show);
-
-//
 // Articles Modify form && Article Modify Process
 // 
 
@@ -103,6 +99,12 @@ app.put('/articolo/:id', routesPost.update);
 app.delete('/articolo/:id', routesPost.del);
 
 //
+// Show Article
+//
+
+app.get('/articolo/:id',routesPost.show);
+
+//
 // Dashboard
 // 
 
@@ -113,6 +115,13 @@ app.get('/dashboard', routesPost.dashboard);
 //
 
 app.get('/cat/:cat', routesPost.byCat);
+
+//
+// Category Create Form && Category Create Process
+// 
+
+//app.get('/cat/new', routesCategory.showNew);
+app.post('/cat/new', routesCategory.add);
 
 //
 // Server Startup
