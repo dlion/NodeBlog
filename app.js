@@ -110,18 +110,19 @@ app.get('/articolo/:id',routesPost.show);
 
 app.get('/dashboard', routesPost.dashboard);
 
-//
-// List articles by categories
-//
-
-app.get('/cat/:cat', routesPost.byCat);
 
 //
 // Category Create Form && Category Create Process
 // 
 
-//app.get('/cat/new', routesCategory.showNew);
+app.get('/cat/new', routesCategory.showNew);
 app.post('/cat/new', routesCategory.add);
+
+//
+// List articles by categories
+//
+
+app.get('/cat/:cat', routesPost.byCat);
 
 //
 // Server Startup
