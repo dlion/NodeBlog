@@ -13,7 +13,7 @@ category.showNew = function(req, res) {
         if(risultato > 0) {
             res.render('category/new', {
                 namesite: config.web.namesite,
-                title: 'Aggiungi Categoria',
+                title: 'Gestione categorie',
                 base: config.web.base
             });
         }
@@ -55,9 +55,13 @@ category.list = function (req, res){
                 res.render('admin/categories', {
                     namesite: config.web.namesite,
                     title: 'Aggiungi Categoria',
-                    base: config.web.base
+                    base: config.web.base,
+                    obj: callback
                 });
             });
+        }
+        else{
+            res.redirect('/login');
         }
     });
 };

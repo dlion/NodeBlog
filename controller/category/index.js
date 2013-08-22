@@ -15,7 +15,8 @@ category.list = function(callback) {
         }
         //Se ci sono categorie
         if(count > 0) {
-            models.Categorie.find( { }, "title").each().run(function(err, resp) {
+            //little hack
+            models.Categorie.find({1:'1'}, function(err, resp) {
                 // error reporting
                 if(err) {
                     console.log(err);
