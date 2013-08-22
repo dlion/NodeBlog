@@ -52,6 +52,27 @@ Pannello.prototype.modify = function(){
 	});
 };
 
+//
+// Funzione per aggiungere una categoria
+// 
+
+Pannello.prototype.add_cat = function() {
+    var _title = $('#title').val(),
+        _descr = $('#descr').val();
+
+    //
+    //Add a category
+	//
+    
+    $.post('/cat/new', {
+        title: _title,
+		descr:  _descr,
+    }, function(res) {
+        alert(res);
+        window.location.replace("/dashboard");
+    });
+};
+
 Pannello.prototype.del = function(id) {
 	$.ajax({
     	url: '/articolo/'+id,
@@ -82,4 +103,8 @@ $(document).ready(function () {
 	$('.delete').click(function(){
 		p.del($(this).attr('rel'));
 	});
+
+    $('#add_cat').click(function() {
+        p.add_cat();
+    });
 });
