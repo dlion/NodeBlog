@@ -203,6 +203,7 @@ post.dashboard = function(req, res) {
             controller.list(req, function(number,arr){
             	if(number > 0) {
                     res.render('admin/dashboard',{
+                        namesite: config.web.namesite,
                         numero: number,
                         base: config.web.base,
                         obj:arr

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	  <% if(typeof title !== 'undefined'){ %>
+  	  		<title><%= namesite %> - <%= title %></title>
+  	  <% } else { %>
+  	  		<title><%= namesite %></title>
+  	  <% } %>
+      <base href="<%= base %>" />    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>

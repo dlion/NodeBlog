@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= namesite %> - <%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <base href="<%= base %>" />
-  </head>
+<% include /commons/head.ejs %>
   <body>
       <h1><%= title %></h1>
       <%if (errore.length > 0) { %> <h3><%= errore %></h3> <% } %>
