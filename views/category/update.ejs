@@ -9,13 +9,14 @@
     <h1><%= title %></h1>
     <div id="container">
     	<h2>Titolo</h2>
-            <input id='title' name='title' />
+            <input id='title' name='title' value='<%= obj.title %>' />
       <h2>Descrizione</h2>
-            <textarea id="descr" name="descr"></textarea>
+            <textarea id="descr" name="descr"><%= obj.descr %></textarea>
+            <input type="hidden" id="cat_id" value="<%= obj.id %>" />
         <br />
-        <button id="add_cat" name='add_cat'>Aggiungi Categoria</button>
+        <button id="modify" name='modify'>Aggiungi Categoria</button>
     </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src='/javascript/pannello.js'></script>
+  <script src='/javascript/dashboardCategories.js'></script>
   </body>
 </html>

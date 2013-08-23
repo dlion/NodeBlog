@@ -9,26 +9,25 @@
     <div id="content">
       <table>
         <% if(numero > 0) { %>
-        <% for(var index in dato) { %>
         <tr>
           <td>Titolo</td>
           <td>Modifica</td>
           <td>Elimina</td>
+        <% for(var index in dato) { %>
         </tr>
         <tr>
           <td><%= dato[index].title %></td>
-          <td><a href="./articolo/<%= dato[index].id %>/update">Modifica</a></td>
+          <td><a href="./cat/<%= dato[index].id %>/update">Modifica</a></td>
           <td><button class="delete" rel="<%= dato[index].id %>">Elimina</button>
         </tr>
         <% } %>
         <% } else { %>
             <h3><%= dato %></h3>
         <% } %>
-        <tr><td><a href="articolo/new">Crea nuovo articolo</a></td></tr>
-        <tr><td><a href="cat/new">Aggiungi Categoria</a></td></tr>
+        <tr><td><a href="cat/new">Crea una nuova categoria</a></td></tr>
     </table>
     </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src='/javascript/pannello.js'></script>
+  <script src='/javascript/dashboardCategories.js'></script>
   </body>
 </html>

@@ -117,12 +117,16 @@ post.modify = function(req, res) {
             if(risultato > 0) {
                 controller.show(req, function(resp, info) {
                     if(resp > 0) {
-                        res.render('post/modify', {
-                            namesite: config.web.namesite,
-                            title: 'Modifica Articolo',
-                            base: config.web.base,
-                            data: info
+                        cate.list(function(resp, categorie) {
+                            res.render('post/modify', {
+                                namesite: config.web.namesite,
+                                title: 'Modifica Articolo',
+                                base: config.web.base,
+                                data: info,
+                                categorie: categorie
+                            });
                         });
+                        
                     }
                     else {
                         res.render('404', { 

@@ -16,15 +16,21 @@
      <h2>Categoria</h2>
         <select id="categoria_id" name='categoria_id'>
             <option value=''>Seleziona la categoria</option>
-            <option value='1'>Programmazione</option>
-            <option value='2'>Sicurezza</option>
-            <option value='3'>Design</option>
+            <% for(var index in categorie ) { 
+                  if(categorie[index].id == data.categoria_id){ %>
+                      <option value = "<%= categorie[index].id %>" selected><%=categorie[index].title %></option>
+              <% }
+                  else{ %>
+                      <option value = "<%= categorie[index].id %>"><%=categorie[index].title %></option>
+                  
+                  <% }
+              } %>
         </select>
         <input type='hidden' name='id_post' value="<%= data.id %>" id="id_post" />
           <br />
         <button id="modify" name='modify'>Modifica</button>
     </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src='/javascript/pannello.js'></script>
+  <script src='/javascript/dashboardArticles.js'></script>
   </body>
 </html>

@@ -1,11 +1,11 @@
-var Pannello = function() {};
+var Dashboard = function() {};
 
 
 //
 // Questa funzione gestisce la creazione dei post
 //
 
-Pannello.prototype.create = function(){
+Dashboard.prototype.create = function(){
 	var _titolo = $("#titolo").val(),
         _testo  = $("#testo").val(),
         _categoria_id = $("#categoria_id").val();
@@ -27,7 +27,7 @@ Pannello.prototype.create = function(){
 // Questa funzione gestisce la modifica dei post
 //
 
-Pannello.prototype.modify = function(){
+Dashboard.prototype.modify = function(){
 	var _titolo = $("#titolo").val(),
         _testo = $("#testo").val(),
         _categoria_id = $("#categoria_id").val(),
@@ -56,7 +56,7 @@ Pannello.prototype.modify = function(){
 // Funzione per aggiungere una categoria
 // 
 
-Pannello.prototype.add_cat = function() {
+Dashboard.prototype.add_cat = function() {
     var _title = $('#title').val(),
         _descr = $('#descr').val();
 
@@ -73,7 +73,7 @@ Pannello.prototype.add_cat = function() {
     });
 };
 
-Pannello.prototype.del = function(id) {
+Dashboard.prototype.del = function(id) {
 	$.ajax({
     	url: '/articolo/'+id,
     	type: 'DELETE',
@@ -88,23 +88,23 @@ Pannello.prototype.del = function(id) {
 // Events on pages
 // 
 
-var p = new Pannello();
+var d = new Dashboard();
 
 $(document).ready(function () {
     
     $('#create').click(function(){
-		p.create();
+		d.create();
 	});
 	
     $('#modify').click(function(){
-		p.modify();
+		d.modify();
     });
     
 	$('.delete').click(function(){
-		p.del($(this).attr('rel'));
+		d.del($(this).attr('rel'));
 	});
 
     $('#add_cat').click(function() {
-        p.add_cat();
+        d.add_cat();
     });
 });

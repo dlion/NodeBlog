@@ -64,17 +64,17 @@ category.list = function(callback) {
 // Get Category for form
 //
 category.show = function(obj, callback){
-    if(obj.params.id == null) {
+    if(obj.params.cat == null) {
         return callback(-1, "Impossibile identificare l'id dellla categoria");
     }
-    models.Categorie.count( { id: obj.params.id }, function(err, count) {
+    models.Categorie.count( { id: obj.params.cat }, function(err, count) {
         if(err) {
             console.log(err);
             return;
         }
         // Se la categoria esiste
         if(count > 0) {
-            models.Post.get(obj.params.id,function (err, resp) {
+            models.Categorie.get(obj.params.cat,function (err, resp) {
                 if(err){
                     console.log(err);
                     return;
@@ -83,7 +83,7 @@ category.show = function(obj, callback){
             });
         }
         else {
-            return callback(0,"LA categoria non esiste!");
+            return callback(0,"La categoria non esiste!");
         }
     });
 };
@@ -111,9 +111,9 @@ category.add = function(req, callback) {
 //
 
 category.update = function(obj, callback){
-    models.Categorie.count( { id: obj.params.id }, function(err, numero){
+    models.Categorie.count( { id: obj.params.cat }, function(err, numero){
         if(numero > 0){
-            models.Categorie.get(obj.params.id, function(err, cateinfo){
+            models.Categorie.get(obj.params.cat, function(err, cateinfo){
                 cateinfo.title = obj.body.title;
                 cateinfo.descr = obj.body.descr;
 
@@ -137,9 +137,9 @@ category.update = function(obj, callback){
 //
 
 category.del = function (obj, callback){
-    models.Categorie.count({id: obj.params.id}, function (err, number){
+    models.Categorie.count({id: obj.params.cat}, function (err, number){
         if(number > 0){
-            models.Categorie.get(obj.params.id, function(err, category){
+            models.Categorie.get(obj.params.cat, function(err, category){
                 category.remove(function (err){
                     if (err){
                         console.log(err);

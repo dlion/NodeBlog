@@ -76,10 +76,12 @@ category.showUpdate = function (req, res) {
     user.isLogged(req, function(risultato){
         if(risultato > 0){
             controllerCategory.show(req, function(respo, risu){
+                console.log(risu);
                 res.render('category/update', {
                     namesite: config.web.namesite,
                     title: 'Modifica Categoria',
-                    base: config.web.base
+                    base: config.web.base,
+                    obj: risu
                 });
             });
         }
