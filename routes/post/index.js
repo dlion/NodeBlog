@@ -70,10 +70,13 @@ post.show = function (req, res) {
 post.showNew = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
-            res.render('post/new', {
-                namesite: config.web.namesite,
-                title: 'Aggiungi Articolo',
-                base: config.web.base
+            cate.list(function(resp, categorie) {
+                res.render('post/new', {
+                    namesite: config.web.namesite,
+                    title: 'Aggiungi Articolo',
+                    base: config.web.base,
+                    categorie: categorie
+                });
             });
         }
         else {
