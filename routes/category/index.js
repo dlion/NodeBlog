@@ -30,12 +30,13 @@ category.showNew = function(req, res) {
 category.list = function (req, res){
     user.isLogged(req, function (risultato){
         if(risultato > 0){
-            controllerCategory.list(function(callback){
+            controllerCategory.list(function(resp,dati){
                 res.render('admin/categories', {
                     namesite: config.web.namesite,
                     title: 'Lista delle Categorie',
                     base: config.web.base,
-                    obj: callback
+                    numero: resp,
+                    dato: dati
                 });
             });
         }
@@ -44,7 +45,6 @@ category.list = function (req, res){
         }
     });
 };
-
 
 //
 // Add a new Category

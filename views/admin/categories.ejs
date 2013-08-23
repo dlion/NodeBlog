@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>Pannello di controllo</title>
+      <title>Lista</title>
       <base href="<%= base %>" />    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
@@ -9,20 +9,20 @@
     <div id="content">
       <table>
         <% if(numero > 0) { %>
+        <% for(var index in dato) { %>
         <tr>
           <td>Titolo</td>
           <td>Modifica</td>
           <td>Elimina</td>
         </tr>
-            <% for (var i = 0; i < obj.length; i++){ %>
         <tr>
-          <td><%= obj[i].titolo %></td>
-          <td><a href="./articolo/<%=obj[i].id %>/update">Modifica</a></td>
-          <td><button class="delete" rel="<%= obj[i].id %>">Elimina</button>
+          <td><%= dato[index].title %></td>
+          <td><a href="./articolo/<%= dato[index].id %>/update">Modifica</a></td>
+          <td><button class="delete" rel="<%= dato[index].id %>">Elimina</button>
         </tr>
-            <% } %>
+        <% } %>
         <% } else { %>
-            <h3><%= obj %></h3>
+            <h3><%= dato %></h3>
         <% } %>
         <tr><td><a href="articolo/new">Crea nuovo articolo</a></td></tr>
         <tr><td><a href="cat/new">Aggiungi Categoria</a></td></tr>

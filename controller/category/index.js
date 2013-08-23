@@ -16,14 +16,16 @@ category.list = function(callback) {
         //Se ci sono categorie
         if(count > 0) {
             //little hack
-            models.Categorie.find({1:'1'}, function(err, resp) {
+            models.Categorie.find(function(err,resp) {
                 // error reporting
                 if(err) {
                     console.log(err);
                     return;
                 }
 
-                console.log("CATE: "+resp);
+                for(var miao in resp) {
+                    console.log("-- CATEGORIE --\ntitolo: "+resp[miao].title+"\nDescr: "+resp[miao].descr+"\n");
+                }
                 return callback(count, resp);
             });
         }
