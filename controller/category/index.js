@@ -84,23 +84,23 @@ category.add = function(req, callback) {
 //
 
 category.update = function(obj, callback){
-    models.Categorie.count({id: obj.params.id}, function (err, numero){
+    models.Categorie.count( { id: obj.params.id }, function(err, numero){
         if(numero > 0){
-            models.Categorie.get(obj.params.id, function (err, c){
-                c.title = obj.body.title;
-                c.descr = obj.body.descr;
+            models.Categorie.get(obj.params.id, function(err, cateinfo){
+                cateinfo.title = obj.body.title;
+                cateinfo.descr = obj.body.descr;
 
-                c.save(function (err){
+                cateinfo.save(function (err){
                     if(err){
                         console.log(err);
                         return;
                     }
-                    return callback ("Categoria aggiornata correttamente");
+                    return callback (1,"Categoria aggiornata correttamente");
                 });
             });
         }
         else{
-            return callback("Categoria non esistente");
+            return callback(0,"Categoria non esistente");
         }
     });
 };
@@ -113,17 +113,17 @@ category.del = function (obj, callback){
     models.Categorie.count({id: obj.params.id}, function (err, number){
         if(number > 0){
             models.Categorie.get(obj.params.id, function(err, category){
-                category.remove( function (err){
+                category.remove(function (err){
                     if (err){
                         console.log(err);
                         return;
                     }
-                    return callback("Articolo rimosso con successo");
+                    return callback(1,"Categoria rimossa con successo");
                 });
             });
         }
         else{
-            return callback("L'articolo non esiste");
+            return callback(0,"La categoria non esiste");
         }
     });
 };

@@ -13,32 +13,11 @@ category.showNew = function(req, res) {
         if(risultato > 0) {
             res.render('category/new', {
                 namesite: config.web.namesite,
-                title: 'Gestione categorie',
+                title: 'Aggiungi categorie',
                 base: config.web.base
             });
         }
         else {
-            res.redirect('/login');
-        }
-    });
-};
-
-//
-// Show Form to update a category
-//
-
-category.showUpdate = function (req, res) {
-    user.isLogged(req, function(risultato){
-        if(risultato > 0){
-            controllerCategory.show(req, function(respo, risu){
-                res.render('category/update', {
-                    namesite: config.web.namesite,
-                    title: 'Aggiungi Categoria',
-                    base: config.web.base
-                });
-            });
-        }
-        else{
             res.redirect('/login');
         }
     });
@@ -54,7 +33,7 @@ category.list = function (req, res){
             controllerCategory.list(function(callback){
                 res.render('admin/categories', {
                     namesite: config.web.namesite,
-                    title: 'Aggiungi Categoria',
+                    title: 'Lista delle Categorie',
                     base: config.web.base,
                     obj: callback
                 });
@@ -90,6 +69,27 @@ category.add = function(req, res) {
 };
 
 //
+// Show Form to update a category
+//
+
+category.showUpdate = function (req, res) {
+    user.isLogged(req, function(risultato){
+        if(risultato > 0){
+            controllerCategory.show(req, function(respo, risu){
+                res.render('category/update', {
+                    namesite: config.web.namesite,
+                    title: 'Modifica Categoria',
+                    base: config.web.base
+                });
+            });
+        }
+        else{
+            res.redirect('/login');
+        }
+    });
+};
+
+//
 // Update a category
 //
 
@@ -97,7 +97,7 @@ category.update = function (req, res){
     user.isLogged(req, function(result){
         if (result > 0){
             if (req.body.title && req.body.descr){
-                controllerCategory.update(req, function (resp, result){
+                controllerCategory.update(req, function(resp, result){
                     res.send(result);
                 });
             }
@@ -109,8 +109,7 @@ category.update = function (req, res){
             res.redirect('/login');
         }
     });
-}
-
+};
 
 //
 // Delete a category
@@ -119,7 +118,7 @@ category.update = function (req, res){
 category.del = function (req, res){
     user.isLogged(req, function(result){
         if(result > 0){
-            controllerCategory.del(req, function (resp, result){
+            controllerCategory.del(req,function (resp, result){
                 res.send(result);
             });
         }
@@ -127,4 +126,4 @@ category.del = function (req, res){
             res.redirect('/login');
         }
     });
-}
+};
