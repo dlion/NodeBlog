@@ -76,6 +76,3 @@ user.signout = function(req, res) {
         }
     });
 };
-
-
-

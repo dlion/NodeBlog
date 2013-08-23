@@ -9,19 +9,25 @@ var config = require('../../config'),
 var user = exports;
 
 //
-// Function to return user's information by ID
-// chi: ID (number)
-// cosa: id, nic, emai,etc. (string)
-// callback: function
-// next: error handle
-// 
+// Return User infos
+//
 
-var EverythingById = function(chi,cosa,callback) {
+user.getInfo = function(chi,cosa,callback) {
     var elementi = [ 'id', 'nick', 'email', 'password', 'hash', 'last_login' ];
     if(utilities.inArray(elementi,cosa)) {
-        models.Utenti.get(chi, function(err, user) {
-            callback(user[cosa]);
+        models.Utenti.count( { id: chi }, function(err, count) {
+            if(count > 0) {
+                models.Utenti.get(chi, function(err, user) {
+                return callback(user[cosa]);
+                });
+            }
+            else {
+                return callback("Utente Non Trovato");
+            }
         });
+    }
+    else {
+        return callback("Passami un valore valido");
     }
 };
 
@@ -30,7 +36,7 @@ var EverythingById = function(chi,cosa,callback) {
 //
 
 user.isLogged = function(obj, callback) {
-    if(!obj.session.nick || !obj.session.id || !obj.session.logIN) {
+    if(!obj.session.nick || !obj.session.userID || !obj.session.logIN) {
         return callback(0);
     }
     else {
@@ -65,7 +71,7 @@ user.signin = function(obj, callback) {
             if(count > 0) {
                 models.Utenti.find( { nick: nick, password: everythingcrypted }).each(function(utente) {
                     obj.session.nick = nick;
-                    obj.session.id = utente.id;
+                    obj.session.userID = utente.id;
                     obj.session.logIN = true;
                     utente.last_login = utilities.getTimestamp();
                     //Qui ci dovrebbe andare il save ma non funge :S
@@ -90,7 +96,7 @@ user.signin = function(obj, callback) {
 //
 
 user.signout = function(obj, callback) {
-    if(obj.session.nick || obj.session.id || obj.session.logIN) {
+    if(obj.session.nick || obj.session.userID || obj.session.logIN) {
         obj.session.destroy(function(err) {
             if(err) {
                 console.log(err);

@@ -3,6 +3,31 @@ var config    = require('../../config'),
     utilities = require('../../utilities/function.js'),
 	category  = exports;
 
+
+
+//
+// Return Category infos
+//
+
+category.getInfo = function(chi,cosa,callback) {
+    var elementi = [ 'id', 'title', 'descr' ];
+    if(utilities.inArray(elementi,cosa)) {
+        models.Categorie.count( { id: chi }, function(err, count) {
+            if(count > 0) {
+                models.Categorie.get(chi, function(err, cate) {
+                return callback(cate[cosa]);
+                });
+            }
+            else {
+                return callback("Categoria Non Trovata");
+            }
+        });
+    }
+    else {
+        return callback("Passami un valore valido");
+    }
+};
+
 //
 // Lista le categorie
 // 

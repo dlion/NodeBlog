@@ -69,7 +69,7 @@ post.create = function(obj, callback){
             titolo: obj.body.titolo,
 		    testo: obj.body.testo,
 		    categoria_id: obj.body.categoria_id,
-		    autore_id: obj.session.id,
+		    autore_id: obj.session.userID,
             data: utilities.getTimestamp()
         },function(err, item){
             if(err){

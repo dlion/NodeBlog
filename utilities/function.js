@@ -7,9 +7,8 @@ var crypto = require('crypto');
 // Check if there is an element in an array
 //
 
-
 exports.inArray = function(archive, element) {
-    for(i=0; i < archive.length; i++) {
+    for(var i=0; i < archive.length; i++) {
         if(archive[i] == element)
             return true;
     }

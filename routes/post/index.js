@@ -45,15 +45,23 @@ post.show = function (req, res) {
             });
         }
         else {
-            res.render('post/show', {
-                namesite: config.web.namesite,
-			    title: obj.titolo,
-                base: config.web.base,
-			    arr: obj
+            // Prendo le info dell'autore
+            user.getInfo(obj.autore_id,"nick", function(autore) {
+                // Prendo le info della categoria
+                cate.getInfo(obj.categoria_id,"title", function(categoria) {
+                    res.render('post/show', {
+                        namesite: config.web.namesite,
+                        title: obj.titolo,
+                        base: config.web.base,
+                        articolo: obj,
+                        autore: autore,
+                        categoria: categoria
+                    });
+                });
             });
         }
     });
-}
+};
 
 //
 // Show Form to create a new Article
