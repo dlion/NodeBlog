@@ -1,6 +1,8 @@
 var config    = require('../../config'),
 	models    = require('../../models'),
     utilities = require('../../utilities/function.js'),
+    user      = require('../user'),
+    cate      = require('../category'),
 	post      = exports;
 
 /*
@@ -20,6 +22,19 @@ post.list = function(obj, callback){
 			        console.log(err);
 			        return;
 		        }
+
+                // Questo dovrebbe darmi in console tutti i dati, invece mi ritorna il titolo di tutti (GIUSTO)
+                // Ma i dati solo del primo! (SBAGLIATO)
+                // Che potrebbe essere?
+             
+                for(var index in resp){
+                    console.log("DAFUQ: "+resp[index].titolo);
+                    user.getInfo(resp[index].autore_id,"nick",function(nick) {
+                        cate.getInfo(resp[index].categoria_id, "title", function(categoria_nome) {
+                            console.log("Post: "+resp[index].titolo+"\nAutore: "+nick+"\nCategoria: "+categoria_nome);
+                        });
+                    });
+                }
 		        return callback(articoli, resp);
 	        });
         }
