@@ -30,7 +30,7 @@ category.getInfo = function(chi,cosa,callback) {
 
 //
 // Lista le categorie
-// 
+//
 
 category.list = function(callback) {
     models.Categorie.count(function(err, count) {
