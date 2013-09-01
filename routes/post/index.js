@@ -15,7 +15,7 @@ post.list = function (req, res) {
 			title: config.web.namesite,
             numero: number,
             base: config.web.base,
-			arr: obj 
+			arr: obj
 		});
 	});
 };
@@ -28,20 +28,20 @@ post.list = function (req, res) {
 post.show = function (req, res) {
     controller.show(req, function(response,obj){
     	if(response < 0) {
-            res.render('500', { 
+            res.render('500', {
                 namesite: config.web.namesite,
-                base: config.web.base, 
-                title: '500 Fucking Error!', 
-                content: obj, 
-                error: '' 
+                base: config.web.base,
+                title: '500 Fucking Error!',
+                content: obj,
+                error: ''
             });
         }
         else if(response == 0) {
-            res.render('404', { 
-                namesite: config.web.namesite, 
+            res.render('404', {
+                namesite: config.web.namesite,
                 base: config.web.base,
-                title: '404 Article Not Found!', 
-                content: obj 
+                title: '404 Article Not Found!',
+                content: obj
             });
         }
         else {
@@ -65,7 +65,7 @@ post.show = function (req, res) {
 
 //
 // Show Form to create a new Article
-// 
+//
 
 post.showNew = function(req, res) {
     user.isLogged(req, function(risultato) {
@@ -109,7 +109,7 @@ post.createNew = function(req, res) {
 
 //
 // Show Form to modify Article
-// 
+//
 
 post.modify = function(req, res) {
     if(req.params.id) {
@@ -126,13 +126,13 @@ post.modify = function(req, res) {
                                 categorie: categorie
                             });
                         });
-                        
+
                     }
                     else {
-                        res.render('404', { 
-                            namesite: config.web.namesite, 
+                        res.render('404', {
+                            namesite: config.web.namesite,
                             base: config.web.base,
-                            title: '404 Article Not Found!', 
+                            title: '404 Article Not Found!',
                             content: info
                         });
                     }
@@ -146,10 +146,10 @@ post.modify = function(req, res) {
     else {
         res.render('500', {
             namesite: config.web.namesite,
-            base: config.web.base, 
-            title: '500 Fucking Error!', 
-            content: info, 
-            error: '' 
+            base: config.web.base,
+            title: '500 Fucking Error!',
+            content: info,
+            error: ''
         });
     }
 };
@@ -195,7 +195,7 @@ post.del = function (req, res) {
 
 //
 // Dashboard
-// 
+//
 
 post.dashboard = function(req, res) {
     user.isLogged(req, function(risultato) {
@@ -235,7 +235,7 @@ post.byCat = function(req, res){
             title: config.web.namesite,
             base: config.web.base,
             numero: number,
-            arr: obj 
+            arr: obj
         });
     });
 };

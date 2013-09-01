@@ -13,7 +13,7 @@ var config    = require('../../config'),
 
 post.list = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
-    
+
 	models.Post.pages(function(err, articoli) {
         if(articoli > 0) {
             models.Post.page(page).order('id', 'Z').run(function(err, resp){
@@ -26,7 +26,7 @@ post.list = function(obj, callback){
                 // Questo dovrebbe darmi in console tutti i dati, invece mi ritorna il titolo di tutti (GIUSTO)
                 // Ma i dati solo del primo! (SBAGLIATO)
                 // Che potrebbe essere?
-             
+
                 for(var index in resp){
                     console.log("DAFUQ: "+resp[index].titolo);
                     user.getInfo(resp[index].autore_id,"nick",function(nick) {
@@ -46,7 +46,7 @@ post.list = function(obj, callback){
 
 
 /***
- * Questa funzione gestisce la richiesta di un solo articolo del 
+ * Questa funzione gestisce la richiesta di un solo articolo del
  * blog
 */
 
@@ -77,7 +77,7 @@ post.show = function(obj, callback){
 
 //
 // Create Article
-// 
+//
 
 post.create = function(obj, callback){
         models.Post.create({
@@ -150,7 +150,7 @@ post.del = function(obj, callback){
 
 post.byCat = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
-    
+
 	models.Post.pages(function(err, articoli) {
         if(articoli > 0) {
             models.Post.count( { categoria_id: obj.params.cat }, function(err, count) {

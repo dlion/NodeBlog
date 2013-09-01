@@ -4,9 +4,9 @@ var config = require ('../../config/'),
     category = exports;
 
 
-// 
+//
 // Show Form to create a new Category
-// 
+//
 
 category.showNew = function(req, res) {
     user.isLogged(req, function(risultato) {
@@ -103,7 +103,7 @@ category.update = function (req, res){
                 });
             }
             else{
-               res.send("Complete all fields of form, please!"); 
+               res.send("Complete all fields of form, please!");
             }
         }
         else{
