@@ -5,28 +5,28 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    
+
     //
     // Configuration file
     //
-    
+
     config = require('./config'),
     //
     // Login Modularized
     //
-    
+
     login = require('./lib/login'),
-    
+
     //
     // Articles Modularized
     //
-    
+
     articolo = require('./lib/articolo'),
-    
+
     //
     // Category Modularized
     //
-    
+
     category = require('./lib/category'),
 
     //
@@ -34,14 +34,14 @@ var express = require('express'),
     //
 
     error = require('./lib/error'),
-    
+
     //
     //  Express app
-    //  
-    
+    //
+
     app = express();
 
-//    
+//
 // All environments
 //
 
@@ -79,7 +79,7 @@ app.use(category);
 
 //
 // Middleware per gli errori
-// 
+//
 
 app.use(error);
 
@@ -88,5 +88,5 @@ app.use(error);
 //
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Server avviato sulla porta: ' + app.get('port'));
+  console.log('Porta in uso dal server: ' + app.get('port'));
 });
