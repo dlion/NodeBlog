@@ -1,0 +1,9 @@
+{
+  _id: 0,
+  Nome: '',
+  Cognome: '',
+  Nick: '',
+  Password: '',
+  Email: '',
+  Pic: ''
+}

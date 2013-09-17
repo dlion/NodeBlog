@@ -1,0 +1,16 @@
+{
+  _id: 0,
+  titolo: '',
+  testo: '',
+  autore: '',
+  tag: [{
+    nome: ''
+  ]},
+  commenti: [{
+    nome: '',
+    email: '',
+    commento: '',
+    creato_il: new Date()
+  }],
+   creato_il: new Date()
+}

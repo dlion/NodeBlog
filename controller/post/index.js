@@ -3,7 +3,8 @@ var config    = require('../../config'),
     utilities = require('../../utilities/function.js'),
     user      = require('../user'),
     cate      = require('../category'),
-	post      = exports;
+	async     = require('async');
+    post      = exports;
 
 /*
  * Questa funzione gestisce la lista dei post, funziona anche
@@ -22,21 +23,10 @@ post.list = function(obj, callback){
 			        console.log(err);
 			        return;
 		        }
+                var oggetto = {};
+                var dati_finali = [];
 
-                // Questo dovrebbe darmi in console tutti i dati, invece mi ritorna il titolo di tutti (GIUSTO)
-                // Ma i dati solo del primo! (SBAGLIATO)
-                // Che potrebbe essere?
-
-                for(var index in resp){
-                    console.log("DAFUQ: "+resp[index].titolo);
-                    user.getInfo(resp[index].autore_id,"nick",function(nick) {
-                        cate.getInfo(resp[index].categoria_id, "title", function(categoria_nome) {
-                            console.log("Post: "+resp[index].titolo+"\nAutore: "+nick+"\nCategoria: "+categoria_nome);
-                        });
-                    });
-                }
-		        return callback(articoli, resp);
-	        });
+            });
         }
         else {
             return callback(articoli, "Nessun Articolo Disponibile!");
