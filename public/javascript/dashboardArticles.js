@@ -8,7 +8,7 @@ var Dashboard = function() {};
 Dashboard.prototype.create = function(){
 	var _titolo = $("#titolo").val(),
         _testo  = $("#testo").val(),
-        _categoria_id = $("#categoria_id").val();
+        _tag = $("#tag").val();
     //
     //Add an article
 	//
@@ -16,7 +16,7 @@ Dashboard.prototype.create = function(){
     $.post('/articolo/new', {
         titolo: _titolo,
 		testo:  _testo,
-		categoria_id: _categoria_id
+		tag: _tag
     }, function(res) {
         alert(res);
         window.location.replace("/dashboard");

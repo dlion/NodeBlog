@@ -30,29 +30,18 @@ post.list = function(obj, callback){
 };
 
 
-/***
+/*
  * Questa funzione gestisce la richiesta di un solo articolo del
  * blog
-*
+*/
 
 post.show = function(obj, callback){
-    if(obj.params.id == null) {
-        return callback(-1, "Impossibile identificare l'id dell'articolo");
+    if(obj.params.titolo == null) {
+        return callback(-1, "Impossibile identificare il titolo dell'articolo");
     }
-    models.Post.count( { id: obj.params.id }, function(err, count) {
-        if(err) {
-            console.log(err);
-            return;
-        }
-        // Se il post esiste
-        if(count > 0) {
-            models.Post.get(obj.params.id,function (err, resp) {
-				if(err){
-					console.log(err);
-					return;
-				}
-		        callback(1,resp);
-	        });
+    models.articolo.findOne({ titolo: obj.params.titolo }, function(err, articolo) {
+        if(articolo) {
+            callback(1,articolo);
 		}
         else {
             return callback(0,"L'articolo non esiste!");
@@ -63,22 +52,25 @@ post.show = function(obj, callback){
 //
 // Create Article
 //
-*/
+
 post.create = function(obj, callback){
-        models.Post.create({
-            titolo: obj.body.titolo,
-		    testo: obj.body.testo,
-		    categoria_id: obj.body.categoria_id,
-		    autore_id: obj.session.userID,
-            data: utilities.getTimestamp()
-        },function(err, item){
-            if(err){
-			    console.log(err);
-			    return callback(-1,err);
-		    }
-		    return callback(1,"Post aggiunto");
-        });
+    var inserisci = new models.articolo({
+        titolo: obj.body.titolo,
+		testo: obj.body.testo,
+        autore: obj.session.nick,
+        tag: obj.body.tag
+    });
+
+    inserisci.save(function(err) {
+        if(err){
+            console.log(err);
+			return callback(-1,err);
+		}
+
+		return callback(1,"Post aggiunto");
+    });
 };
+
 /*
 
 //

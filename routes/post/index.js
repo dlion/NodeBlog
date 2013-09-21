@@ -1,7 +1,6 @@
 var config       = require ('../../config/'),
     controller   = require ('../../controller/post'),
     user		 = require('../../controller/user'),
-    cate         = require('../../controller/category'),
     post         = exports;
 
 //
@@ -24,7 +23,7 @@ post.list = function (req, res) {
 //
 // Ritorna le info di un singolo Articolo
 //
-/*
+
 post.show = function (req, res) {
     controller.show(req, function(response,obj){
     	if(response < 0) {
@@ -45,23 +44,18 @@ post.show = function (req, res) {
             });
         }
         else {
-            // Prendo le info dell'autore
-            user.getInfo(obj.autore_id,"nick", function(autore) {
-                // Prendo le info della categoria
-                cate.getInfo(obj.categoria_id,"title", function(categoria) {
-                    res.render('post/show', {
-                        namesite: config.web.namesite,
-                        title: obj.titolo,
-                        base: config.web.base,
-                        articolo: obj,
-                        autore: autore,
-                        categoria: categoria
-                    });
-                });
+            res.render('post/show', {
+                namesite: config.web.namesite,
+                title: obj.titolo,
+                base: config.web.base,
+                articolo: obj.testo,
+                autore: obj.autore,
+                tag: obj.tag
             });
         }
     });
 };
+
 
 //
 // Show Form to create a new Article
@@ -70,13 +64,10 @@ post.show = function (req, res) {
 post.showNew = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
-            cate.list(function(resp, categorie) {
-                res.render('post/new', {
-                    namesite: config.web.namesite,
-                    title: 'Aggiungi Articolo',
-                    base: config.web.base,
-                    categorie: categorie
-                });
+            res.render('post/new', {
+                namesite: config.web.namesite,
+                title: 'Aggiungi Articolo',
+                base: config.web.base,
             });
         }
         else {
@@ -92,7 +83,7 @@ post.showNew = function(req, res) {
 post.createNew = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
-            if(req.body.titolo && req.body.testo && req.body.categoria_id) {
+            if(req.body.titolo && req.body.testo && req.body.tag) {
                 controller.create(req, function(response, risultato) {
                     res.send(risultato);
                 });
@@ -107,6 +98,7 @@ post.createNew = function(req, res) {
     });
 };
 
+/*
 //
 // Show Form to modify Article
 //
@@ -224,30 +216,3 @@ post.dashboard = function(req, res) {
         }
     });
 };
-
-//
-// Show Post by Category
-//
-/*
-post.byCat = function(req, res){
-    controller.byCat(req, function(number,obj){
-        res.render('post/index',  {
-            namesite: config.web.namesite,
-            title: config.web.namesite,
-            base: config.web.base,
-            numero: number,
-            arr: obj
-        });
-    });
-};
-
-//
-// Per le API
-//
-
-post.listJSON = function (req, res){
-	controller.list(req, function (number, obj){
-		res.send(obj);
-	});
-};
-*/

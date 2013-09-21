@@ -6,16 +6,10 @@
             <input id='titolo' name='titolo' />
       <h2>Testo</h2>
             <textarea id="testo" name="testo"></textarea>
-            
-     <h2>Categoria</h2>
-        <select id="categoria_id" name='categoria_id'>
-            <option value=''>Seleziona la categoria</option>
-            <% for(var index in categorie) { %>
-            <option value="<%= categorie[index].id %>"><%= categorie[index].title %></option>
-            <% } %>
-        </select>
-          <br />
-        <button id="create" name='create'>Crea</button>
+
+     <h2>Tag</h2>
+          <input id="tag" name="tag" />
+     <button id="create" name='create'>Crea</button>
     </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src='/javascript/dashboardArticles.js'></script>
