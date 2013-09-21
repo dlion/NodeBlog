@@ -2,34 +2,10 @@
 // Configuration
 //
 
-var config = require('../../config'),
-    models = require('../../models'),
-    utilities = require('../../utilities/function.js');
-
-var user = exports;
-
-//
-// Return User infos
-//
-
-user.getInfo = function(chi,cosa,callback) {
-    var elementi = [ 'id', 'nick', 'email', 'password', 'hash', 'last_login' ];
-    if(utilities.inArray(elementi,cosa)) {
-        models.Utenti.count( { id: chi }, function(err, count) {
-            if(count > 0) {
-                models.Utenti.get(chi, function(err, user) {
-                return callback(user[cosa]);
-                });
-            }
-            else {
-                return callback("Utente Non Trovato");
-            }
-        });
-    }
-    else {
-        return callback("Passami un valore valido");
-    }
-};
+var config    = require('../../config');
+var models    = require('../../models');
+var utilities = require('../../utilities/function.js');
+var user      = exports;
 
 //
 // Check if an user is Logged
@@ -62,27 +38,20 @@ user.signin = function(obj, callback) {
         // Crypt everything
         var everythingcrypted = utilities.cryptSha1(saltcrypted+passcrypted);
         //Conto gli utenti con il nick e la pass
-        models.Utenti.count( { nick: nick, password: everythingcrypted }, function(err, count) {
+        models.utenti.find({ nick: nick, password: everythingcrypted }, function(err, dato) {
             if(err) {
                 console.log(err);
                 return;
             }
-            //Se ho degli utenti che corrispondono
-            if(count > 0) {
-                models.Utenti.find( { nick: nick, password: everythingcrypted }).each(function(utente) {
-                    obj.session.nick = nick;
-                    obj.session.userID = utente.id;
-                    obj.session.logIN = true;
-                    utente.last_login = utilities.getTimestamp();
-                    //Qui ci dovrebbe andare il save ma non funge :S
-                }).save(function(err) {
-                    if(err) {
-                        return callback(-1, "Errore: "+err);
-                    }
-                    else {
-                        return callback(1, "Login Successfull!");
-                    }
-                });
+            if(dato.length > 0) {
+                obj.session.nick = dato.nick;
+                obj.session.nome = dato.nome;
+                obj.session.cognome = dato.cognome;
+                obj.session.pic = dato.pic;
+                obj.session.email = dato.email;
+                obj.session.userID = dato._id;
+                obj.session.logIN = true;
+                return callback(1, "Login Successfull!");
             }
             else {
                 return callback(0,"Login Incorrect!");

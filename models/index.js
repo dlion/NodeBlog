@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/nodeblog');
+var Schema   = mongoose.Schema;
+var config   = require('../config');
+var exp      = {};
+var db = mongoose.createConnection(config.orm.host,config.orm.db);
 
-// Definisco il modello
-var Articolo = mongoose.model('Articolo', {
-	titolo: String,
+
+// Definisco il modello articolo
+var Articoli = new Schema({
+    titolo: { type: String, index: true },
 	testo: String,
 	autore: String,
-	tag: {
-		nome: String
-	},
+	tag: String,
 	commenti: {
 		nome: String,
 		email: String,
@@ -18,25 +20,21 @@ var Articolo = mongoose.model('Articolo', {
 	creato_il: { type: Date, default: Date.now() }
 });
 
-//Inserisco un articolo
+// Compilo il modello
+exp.articolo = db.model('Articoli', Articoli, 'articoli');
 
-var post = new Articolo({
-	titolo: "Un titolo",
-	testo: "Nella grande casa blu",
-	autore: "DLion",
-	tag: {
-		nome: "Prova"
-	},
-	commenti: {
-		nome: "Estraneo",
-		email: "estraneo@gmail.ti",
-		commento: "Commento produttivo"
-	}
+// Definisco il modello utente
+var Utenti = new Schema({
+    nome: String,
+    cognome: String,
+    nick: { type: String, required: true, index: { unique: true } },
+    password: String,
+    email: { type: String, required: true, index: { unique: true, sparse: true } },
+    pic: String
 });
 
+//Compilo il modello
+exp.utenti = db.model('Utenti', Utenti,'utenti');
 
-// Trovo tutti i post di DLion
-Articolo.find({ autore: "DLion" },function(err, dato) {
-		console.log("QUI STAMPO: "+dato);
-		mongoose.disconnect();
-});
+//Esporto il tutto
+module.exports = exp;

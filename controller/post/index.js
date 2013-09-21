@@ -3,7 +3,6 @@ var config    = require('../../config'),
     utilities = require('../../utilities/function.js'),
     user      = require('../user'),
     cate      = require('../category'),
-	async     = require('async');
     post      = exports;
 
 /*
@@ -15,18 +14,13 @@ var config    = require('../../config'),
 post.list = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
 
-	models.Post.pages(function(err, articoli) {
-        if(articoli > 0) {
-            models.Post.page(page).order('id', 'Z').run(function(err, resp){
+    models.articolo.find({},function(err, articoli) {
+        if(articoli.length > 0) {
 		        //error reporting
 		        if(err) {
 			        console.log(err);
 			        return;
 		        }
-                var oggetto = {};
-                var dati_finali = [];
-
-            });
         }
         else {
             return callback(articoli, "Nessun Articolo Disponibile!");
