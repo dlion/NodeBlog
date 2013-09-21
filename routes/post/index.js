@@ -196,6 +196,7 @@ post.del = function (req, res) {
 //
 // Dashboard
 //
+*/
 
 post.dashboard = function(req, res) {
     user.isLogged(req, function(risultato) {
@@ -206,7 +207,7 @@ post.dashboard = function(req, res) {
                         namesite: config.web.namesite,
                         numero: number,
                         base: config.web.base,
-                        obj:arr
+                        obj: arr
                     });
                 }
                 else {
@@ -227,7 +228,7 @@ post.dashboard = function(req, res) {
 //
 // Show Post by Category
 //
-
+/*
 post.byCat = function(req, res){
     controller.byCat(req, function(number,obj){
         res.render('post/index',  {

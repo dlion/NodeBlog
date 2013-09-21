@@ -38,12 +38,12 @@ user.signin = function(obj, callback) {
         // Crypt everything
         var everythingcrypted = utilities.cryptSha1(saltcrypted+passcrypted);
         //Conto gli utenti con il nick e la pass
-        models.utenti.find({ nick: nick, password: everythingcrypted }, function(err, dato) {
+        models.utenti.findOne({ nick: nick, password: everythingcrypted }, function(err, dato) {
             if(err) {
                 console.log(err);
                 return;
             }
-            if(dato.length > 0) {
+            if(dato) {
                 obj.session.nick = dato.nick;
                 obj.session.nome = dato.nome;
                 obj.session.cognome = dato.cognome;
