@@ -21,9 +21,10 @@ post.list = function(obj, callback){
 			        console.log(err);
 			        return;
 		        }
+                return callback(articoli.length,articoli);
         }
         else {
-            return callback(articoli, "Nessun Articolo Disponibile!");
+            return callback(articoli.length, "Nessun Articolo Disponibile!");
         }
     });
 };
@@ -32,7 +33,7 @@ post.list = function(obj, callback){
 /***
  * Questa funzione gestisce la richiesta di un solo articolo del
  * blog
-*/
+*
 
 post.show = function(obj, callback){
     if(obj.params.id == null) {
@@ -158,3 +159,4 @@ post.byCat = function(obj, callback){
         }
     });
 };
+*/

@@ -24,7 +24,7 @@ post.list = function (req, res) {
 //
 // Ritorna le info di un singolo Articolo
 //
-
+/*
 post.show = function (req, res) {
     controller.show(req, function(response,obj){
     	if(response < 0) {
@@ -249,3 +249,4 @@ post.listJSON = function (req, res){
 		res.send(obj);
 	});
 };
+*/

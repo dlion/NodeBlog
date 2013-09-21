@@ -68,7 +68,7 @@ app.use(login);
 // Middleware per gli articoli
 //
 
-//app.use(articolo);
+app.use(articolo);
 
 //
 // Middleware per le categorie
