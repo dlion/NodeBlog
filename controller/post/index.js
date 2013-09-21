@@ -63,7 +63,7 @@ post.show = function(obj, callback){
 //
 // Create Article
 //
-
+*/
 post.create = function(obj, callback){
         models.Post.create({
             titolo: obj.body.titolo,
@@ -79,6 +79,7 @@ post.create = function(obj, callback){
 		    return callback(1,"Post aggiunto");
         });
 };
+/*
 
 //
 // Update Article
