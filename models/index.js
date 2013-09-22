@@ -4,19 +4,21 @@ var config   = require('../config');
 var exp      = {};
 var db = mongoose.createConnection(config.db.host,config.db.db_name);
 
+var Commenti = new Schema({
+    nome: String,
+	email: String,
+	commento: String,
+	creato_il: Date
+});
+
 
 // Definisco il modello articolo
 var Articoli = new Schema({
-    titolo: { type: String, index: true },
+    titolo: { type: String, required: true, index: true},
 	testo: String,
-	autore: String,
-	tag: String,
-	commenti: {
-		nome: String,
-		email: String,
-		commento: String,
-		creato_il: { type: Date, default: Date.now() }
-	},
+	autore: { type: String, index: true},
+	tag: [{ type: String, index: true }],
+	commenti: [Commenti],
 	creato_il: { type: Date, default: Date.now() }
 });
 
