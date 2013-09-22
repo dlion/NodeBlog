@@ -1,14 +1,30 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
+  "name": "nodeblog",
+  "version": "1.0.0",
+  "description": "Blog Wrote in NodeJS",
+  "main": "app.js",
   "dependencies": {
-    "express": "3.3.4",
-    "ejs": "*",
-    "less-middleware": "*",
-    "orm": "*"
-  }
+    "crypto": "~0.0.3",
+    "ejs": "~0.8.4",
+    "express": "~3.3.4",
+    "less-middleware": "~0.1.12",
+    "mongodb": "~1.3.19",
+    "mongoose": "~3.6.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:DLion/nodeblog.git"
+  },
+  "keywords": [
+    "blog",
+    "nodejs",
+    "mongoose",
+    "mongodb"
+  ],
+  "author": "DLion",
+  "license": "BSD-2-Clause"
 }
