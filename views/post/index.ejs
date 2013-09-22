@@ -12,10 +12,10 @@
           <div class="intro">
           <h2> <%= arr[i].titolo %> </h2>
     			<%= arr[i].testo.substring(0,100) %>
-    			<p>continua a leggere <a href="./articolo/<%= arr[i].titolo%>">qui</a></p>
+    			<p>continua a leggere <a href="./articolo/<%= arr[i]._id%>">qui</a></p>
     		</div>
     		<div class="who">
-    			Scritto da: <%= arr[i].autor %> con i tag <%= arr[i].tag %>
+    			Scritto da: <%= arr[i].autore %> con i tag <%= arr[i].tag %>
     		</div>
     	</div>
             <% } %>

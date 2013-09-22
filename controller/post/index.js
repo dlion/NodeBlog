@@ -2,7 +2,6 @@ var config    = require('../../config'),
 	models    = require('../../models'),
     utilities = require('../../utilities/function.js'),
     user      = require('../user'),
-    cate      = require('../category'),
     post      = exports;
 
 /*
@@ -14,7 +13,7 @@ var config    = require('../../config'),
 post.list = function(obj, callback){
 	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
 
-    models.articolo.find({},function(err, articoli) {
+    models.articolo.find({}, null, { sort: { creato_il: -1 } }, function(err, articoli) {
         if(articoli.length > 0) {
 		        //error reporting
 		        if(err) {
@@ -36,10 +35,10 @@ post.list = function(obj, callback){
 */
 
 post.show = function(obj, callback){
-    if(obj.params.titolo == null) {
+    if(obj.params.id == null) {
         return callback(-1, "Impossibile identificare il titolo dell'articolo");
     }
-    models.articolo.findOne({ titolo: obj.params.titolo }, function(err, articolo) {
+    models.articolo.findById(obj.params.id, function(err, articolo) {
         if(articolo) {
             callback(1,articolo);
 		}
@@ -71,27 +70,22 @@ post.create = function(obj, callback){
     });
 };
 
-/*
-
 //
 // Update Article
 //
 
 post.update = function(obj, callback){
-    models.Post.count( { id: obj.params.id }, function(err, numero) {
-        if(numero > 0) {
-            models.Post.get(obj.params.id, function(err, p){
-                p.titolo       = obj.body.titolo;
-                p.testo        = obj.body.testo;
-                p.categoria_id = obj.body.categoria_id;
-                p.save(function(err){
-                    if(err){
-                        console.log(err);
-                        return;
-			        }
-                    return callback("Articolo aggiornato");
-		        });
-	        });
+    models.articolo.findByIdAndUpdate(obj.params.id,{
+        titolo: obj.body.titolo,
+        testo: obj.body.testo,
+        tag: obj.body.tag
+    }, function(err, dato) {
+        if(err){
+            console.log(err);
+            return;
+		}
+        if(dato) {
+            return callback("Articolo aggiornato");
         }
         else {
             return callback("Articolo non trovato");
@@ -104,52 +98,16 @@ post.update = function(obj, callback){
 //
 
 post.del = function(obj, callback){
-    models.Post.count( { id: obj.params.id }, function(err, conto) {
-        if(conto > 0) {
-            models.Post.get(obj.params.id, function(err, articolo){
-                articolo.remove(function(err){
-                    if(err){
-                        console.log(err);
-                        return;
-                    }
-                    return callback("Articolo rimosso correttamente");
-                });
-            });
+    models.articolo.findByIdAndRemove(obj.params.id, function(err, articolo) {
+        if(err){
+            console.log(err);
+            return;
+        }
+        if(articolo) {
+            return callback("Articolo rimosso correttamente");
         }
         else {
             return callback("L'articolo non esiste!");
         }
     });
 };
-
-//
-// Articoli per Categorie
-//
-
-post.byCat = function(obj, callback){
-	var page = (obj.params.pg !== null) ? obj.params.pg : 1;
-
-	models.Post.pages(function(err, articoli) {
-        if(articoli > 0) {
-            models.Post.count( { categoria_id: obj.params.cat }, function(err, count) {
-                if(count > 0) {
-                    models.Post.page(page).find( { categoria_id: obj.params.cat } ).order('id', 'Z').run(function(err, resp){
-                        //error reporting
-		                 if(err) {
-			                console.log(err);
-			                return;
-		                }
-		                return callback(count, resp);
-                    });
-                }
-                else {
-                    callback(count,"Nessun articolo per questa categoria!");
-                }
-            });
-        }
-        else {
-            return callback(articoli, "Nessun Articolo Disponibile!");
-        }
-    });
-};
-*/

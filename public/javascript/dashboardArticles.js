@@ -12,7 +12,7 @@ Dashboard.prototype.create = function(){
     //
     //Add an article
 	//
-    
+
     $.post('/articolo/new', {
         titolo: _titolo,
 		testo:  _testo,
@@ -30,7 +30,7 @@ Dashboard.prototype.create = function(){
 Dashboard.prototype.modify = function(){
 	var _titolo = $("#titolo").val(),
         _testo = $("#testo").val(),
-        _categoria_id = $("#categoria_id").val(),
+        _tag = $("#tag").val(),
         _post_id = $("#id_post").val();
 
     //
@@ -43,34 +43,13 @@ Dashboard.prototype.modify = function(){
         data: {
 			titolo: 	  _titolo,
 			testo:  	  _testo,
-			categoria_id: _categoria_id,
+            tag:          _tag,
 			id: 		  _post_id
 		}, success: function (res) {
 			alert(res);
             window.location.replace("/dashboard");
 		}
 	});
-};
-
-//
-// Funzione per aggiungere una categoria
-// 
-
-Dashboard.prototype.add_cat = function() {
-    var _title = $('#title').val(),
-        _descr = $('#descr').val();
-
-    //
-    //Add a category
-	//
-    
-    $.post('/cat/new', {
-        title: _title,
-		descr:  _descr,
-    }, function(res) {
-        alert(res);
-        window.location.replace("/dashboard");
-    });
 };
 
 Dashboard.prototype.del = function(id) {
@@ -86,25 +65,21 @@ Dashboard.prototype.del = function(id) {
 
 //
 // Events on pages
-// 
+//
 
 var d = new Dashboard();
 
 $(document).ready(function () {
-    
+
     $('#create').click(function(){
 		d.create();
 	});
-	
+
     $('#modify').click(function(){
 		d.modify();
     });
-    
+
 	$('.delete').click(function(){
 		d.del($(this).attr('rel'));
 	});
-
-    $('#add_cat').click(function() {
-        d.add_cat();
-    });
 });

@@ -98,7 +98,6 @@ post.createNew = function(req, res) {
     });
 };
 
-/*
 //
 // Show Form to modify Article
 //
@@ -109,16 +108,12 @@ post.modify = function(req, res) {
             if(risultato > 0) {
                 controller.show(req, function(resp, info) {
                     if(resp > 0) {
-                        cate.list(function(resp, categorie) {
-                            res.render('post/modify', {
-                                namesite: config.web.namesite,
-                                title: 'Modifica Articolo',
-                                base: config.web.base,
-                                data: info,
-                                categorie: categorie
-                            });
+                        res.render('post/modify', {
+                            namesite: config.web.namesite,
+                            title: 'Modifica Articolo',
+                            base: config.web.base,
+                            data: info,
                         });
-
                     }
                     else {
                         res.render('404', {
@@ -153,7 +148,7 @@ post.modify = function(req, res) {
 post.update = function (req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
-            if(req.body.titolo && req.body.testo && req.body.categoria_id) {
+            if(req.body.titolo && req.body.testo && req.body.tag) {
                 controller.update(req, function(obj){
                     res.send(obj);
 	            });
@@ -176,7 +171,7 @@ post.del = function (req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
             controller.del(req, function(obj){
-		    res.send(obj);
+                res.send(obj);
             });
         }
         else {
@@ -188,7 +183,6 @@ post.del = function (req, res) {
 //
 // Dashboard
 //
-*/
 
 post.dashboard = function(req, res) {
     user.isLogged(req, function(risultato) {

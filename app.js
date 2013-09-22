@@ -23,12 +23,6 @@ var express = require('express'),
     articolo = require('./lib/articolo'),
 
     //
-    // Category Modularized
-    //
-
- //   category = require('./lib/category'),
-
-    //
     // Error Modularized
     //
 
@@ -69,12 +63,6 @@ app.use(login);
 //
 
 app.use(articolo);
-
-//
-// Middleware per le categorie
-//
-
-//app.use(category);
 
 //
 // Middleware per gli errori

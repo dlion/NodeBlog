@@ -6,21 +6,9 @@
         <input id='titolo' name='titolo' value="<%= data.titolo %>" />
       <h2>Testo</h2>
       <textarea id="testo" name="testo"><%= data.testo %></textarea>
-            
-     <h2>Categoria</h2>
-        <select id="categoria_id" name='categoria_id'>
-            <option value=''>Seleziona la categoria</option>
-            <% for(var index in categorie ) { 
-                  if(categorie[index].id == data.categoria_id){ %>
-                      <option value = "<%= categorie[index].id %>" selected><%=categorie[index].title %></option>
-              <% }
-                  else{ %>
-                      <option value = "<%= categorie[index].id %>"><%=categorie[index].title %></option>
-                  
-                  <% }
-              } %>
-        </select>
-        <input type='hidden' name='id_post' value="<%= data.id %>" id="id_post" />
+      <h2>Tag</h2>
+      <input id="tag" name="tag" value="<%= data.tag %>" />
+        <input type='hidden' name='id_post' value="<%= data._id %>" id="id_post" />
           <br />
         <button id="modify" name='modify'>Modifica</button>
     </div>
