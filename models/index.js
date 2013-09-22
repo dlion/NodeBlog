@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var config   = require('../config');
 var exp      = {};
-var db = mongoose.createConnection(config.orm.host,config.orm.db);
+var db = mongoose.createConnection(config.db.host,config.db.db_name);
 
 
 // Definisco il modello articolo
