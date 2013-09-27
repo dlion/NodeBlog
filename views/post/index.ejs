@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='/css/bootstrap.min.css' media='screen'>
         <link rel='stylesheet' href='/css/bootstrap-theme.min.css' media='screen'>
-        <link rel='stylesheet' href='/css/index.css' media='screen'>
+        <link rel='stylesheet' href='/css/index.css'>
     </head>
     <body>
         <div class="container">
@@ -37,7 +37,7 @@
                 <h1><%= arr[i].titolo %></h1>
                 <p><%= arr[i].testo.substring(0,100) %></p>
                 <p><a class="btn btn-lg btn-primary" href="/articolo/<%= arr[i]._id %>">Continua a leggere</a></p>
-                <p class="text-right">Autore: <a href="/autore/<%= arr[i].autore %>"><%= arr[i].autore %></a> Tag: <span class="label label-default"><%= arr[i].tag %></span></p>
+                <p class="text-right">Autore: <a href="/autore/<%= arr[i].autore %>"><%= arr[i].autore %></a> Tag: <% for(var j=0; j < arr[i].tag.length; j++) {%> <span class="label label-default"><%= arr[i].tag[j] %></span> <% } %></p>
             </div>
                 <% } %>
                 <% } else { %>

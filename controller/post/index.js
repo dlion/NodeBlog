@@ -53,12 +53,18 @@ post.show = function(obj, callback){
 //
 
 post.create = function(obj, callback){
+    // Splitto i vari tag creando un array di tag
+    var tagghi = obj.body.tag.split(',');
+
     var inserisci = new models.articolo({
         titolo: obj.body.titolo,
 		testo: obj.body.testo,
-        autore: obj.session.nick,
-        tag: obj.body.tag
+        autore: obj.session.nick
     });
+
+    for(var indice in tagghi) {
+        inserisci.tag.push(tagghi[indice].trim());
+    }
 
     inserisci.save(function(err) {
         if(err){
