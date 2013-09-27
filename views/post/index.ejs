@@ -1,27 +1,53 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title> <%= title %></title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <title><%= title %></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='/css/bootstrap.min.css' media='screen'>
+        <link rel='stylesheet' href='/css/bootstrap-theme.min.css' media='screen'>
+        <link rel='stylesheet' href='/css/index.css' media='screen'>
     </head>
-<body>
-    <h1><%= title %></h1>
-    <div id="container">
-        <% if (numero > 0) { %>
-            <% for (var i = 0; i < arr.length; i++){ %>
-    	<div class="post">
-          <div class="intro">
-          <h2> <%= arr[i].titolo %> </h2>
-    			<%= arr[i].testo.substring(0,100) %>
-    			<p>continua a leggere <a href="./articolo/<%= arr[i]._id%>">qui</a></p>
-    		</div>
-    		<div class="who">
-    			Scritto da: <%= arr[i].autore %> con i tag <%= arr[i].tag %>
-    		</div>
-    	</div>
+    <body>
+        <div class="container">
+            <!-- Static navbar -->
+            <div class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><%= title %></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="/page/about">About</a></li>
+                        <li><a href="/page/author">Author</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://github.com/DLion/nodeblog">ForkMe</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+            <!-- Main component for a primary marketing message or call to action -->
+            <% if (numero > 0) { %>
+                <% for (var i = 0; i < arr.length; i++){ %>
+            <div class="jumbotron">
+                <h1><%= arr[i].titolo %></h1>
+                <p><%= arr[i].testo.substring(0,100) %></p>
+                <p><a class="btn btn-lg btn-primary" href="/articolo/<%= arr[i]._id %>">Continua a leggere</a></p>
+                <p class="text-right">Autore: <a href="/autore/<%= arr[i].autore %>"><%= arr[i].autore %></a> Tag: <span class="label label-default"><%= arr[i].tag %></span></p>
+            </div>
+                <% } %>
+                <% } else { %>
+            <div class="jumbotron">
+                <h1>Nessun Articolo presente</h1>
+                <p>Inserisci un nuovo articolo dalla <a href="/dashboard">dashboard</a></p>
+            </div>
             <% } %>
-        <% } else { %>
-            <h3><%= arr %></h3>
-        <% } %>
-    </div>
-  </body>
+        </div>
+        <script src="/js/jquery.min.js"></script>
+        <script src='/js/bootstrap.min.js'></script>
+    </body>
 </html>
