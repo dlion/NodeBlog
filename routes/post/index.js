@@ -1,6 +1,7 @@
 var config       = require ('../../config/'),
     controller   = require ('../../controller/post'),
     user		 = require('../../controller/user'),
+    marked       = require('marked'),
     post         = exports;
 
 //
@@ -44,11 +45,12 @@ post.show = function (req, res) {
             });
         }
         else {
+
             res.render('post/show', {
                 namesite: config.web.namesite,
                 title: obj.titolo,
                 base: config.web.base,
-                articolo: obj.testo,
+                articolo: marked(obj.testo),
                 autore: obj.autore,
                 tag: obj.tag
             });
