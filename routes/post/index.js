@@ -50,7 +50,7 @@ post.show = function (req, res) {
                 namesite: config.web.namesite,
                 title: obj.titolo,
                 base: config.web.base,
-                articolo: marked(obj.testo),
+                articolo: marked(obj.testo,{ sanitize: true}),
                 autore: obj.autore,
                 tag: obj.tag
             });
