@@ -37,7 +37,8 @@
             <div class="jumbotron">
                 <h1><%= arr[i].titolo %></h1>
                 <p><a class="btn btn-lg btn-primary" href="/articolo/<%= arr[i]._id %>">Continua a leggere</a></p>
-                <p class="text-right">Autore: <a href="/autore/<%= arr[i].autore %>"><%= arr[i].autore %></a> Tag: <% for(var j=0; j < arr[i].tag.length; j++) {%> <span class="label label-default"><%= arr[i].tag[j] %></span> <% } %></p>
+                <p class="text-right">Autore: <a href="/autore/<%= arr[i].autore %>"><%= arr[i].autore %></a></p>
+                <p class="text-right">Tag: <% for(var j=0; j < arr[i].tag.length; j++) {%> <span class="label label-default"><%= arr[i].tag[j] %></span> <% } %></p>
             </div>
                 <% } %>
                 <% } else { %>
