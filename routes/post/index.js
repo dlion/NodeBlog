@@ -12,7 +12,7 @@ post.list = function (req, res) {
 	controller.list(req, function(number,obj){
 		res.render('post/index',  {
 			namesite: config.web.namesite,
-			title: config.web.namesite,
+			title: '',
             numero: number,
             base: config.web.base,
 			arr: obj
