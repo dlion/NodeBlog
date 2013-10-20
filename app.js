@@ -42,6 +42,7 @@ var express = require('express'),
 app.set('port', config.web.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -50,7 +51,6 @@ app.use(express.cookieParser(config.web.secret_cookie));
 app.use(express.session(config.web.secret_session));
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.errorHandler({showStack: true, dumpExceptions: true}));
 
 //
