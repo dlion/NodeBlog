@@ -224,3 +224,24 @@ post.dashboard = function(req, res) {
         }
     });
 };
+
+//
+// Tag Search
+//
+
+post.tagSearch = function(req, res) {
+    controller.tagSearch(req,function(number, obj) {
+        var dati = {
+            namesite: config.web.namesite,
+            title: "TagSearch",
+            numero: number,
+            base: config.web.base,
+            username: '',
+            arr: obj
+        };
+        if(req.session.logIN == true) {
+            dati.username = req.session.nick;
+        }
+        res.render('post/index', dati);
+    });
+};

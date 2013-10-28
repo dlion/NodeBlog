@@ -36,14 +36,14 @@ post.list = function(obj, callback){
 
 post.show = function(obj, callback){
     if(obj.params.id == null) {
-        return callback(-1, "Impossibile identificare il titolo dell'articolo");
+        return callback(-1, "Article Not Found!");
     }
     models.articolo.findById(obj.params.id, function(err, articolo) {
         if(articolo) {
             callback(1,articolo);
 		}
         else {
-            return callback(0,"L'articolo non esiste!");
+            return callback(0,"Article Not Found!");
         }
     });
 };
@@ -116,4 +116,29 @@ post.del = function(obj, callback){
             return callback("L'articolo non esiste!");
         }
     });
+};
+
+//
+// Tag Search
+//
+
+post.tagSearch = function(obj, callback){
+    if(obj.params.tag) {
+        models.articolo.find({ tag: obj.params.tag }, null, { sort: { creato_il: -1 } }, function(err, articoli) {
+            if(articoli.length > 0) {
+                //error reporting
+                if(err) {
+                    console.log(err);
+			        return;
+		        }
+                return callback(articoli.length,articoli);
+            }
+            else {
+                return callback(articoli.length, "Nessun Articolo Disponibile!");
+            }
+        });
+    }
+    else {
+        return callback(-1, 'Article Not Found!');
+    }
 };
