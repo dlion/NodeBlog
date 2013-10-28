@@ -16,12 +16,15 @@ user.login = function(req, res) {
             res.redirect('/dashboard');
         }
         else {
-            res.render('login',{
+            var dati = {
                 namesite: config.web.namesite,
                 title: 'Login',
                 errore: '',
-                base: config.web.base
-            });
+                base: config.web.base,
+                username: ''
+            };
+
+            res.render('login',dati);
         }
     });
 };
@@ -41,13 +44,14 @@ user.signin = function(req, res) {
                     res.redirect('/dashboard');
                 }
                 else {
-                    res.render('login',
-                        {
-                            namesite: config.web.namesite,
-                            title: 'Login',
-                            errore: stringa,
-                            base: config.web.base,
-                        });
+                    var dati = {
+                        namesite: config.web.namesite,
+                        title: 'Login',
+                        username: '',
+                        errore: stringa,
+                        base: config.web.base
+                    };
+                    res.render('login',dati);
                 }
             });
         }

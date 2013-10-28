@@ -10,14 +10,19 @@ var config       = require ('../../config/'),
 
 post.list = function (req, res) {
 	controller.list(req, function(number,obj){
-		res.render('post/index',  {
-			namesite: config.web.namesite,
-			title: '',
+        var dati = {
+            namesite: config.web.namesite,
+            title: "Home",
             numero: number,
             base: config.web.base,
-			arr: obj
-		});
-	});
+            username: '',
+            arr: obj
+        };
+        if(req.session.logIN == true) {
+            dati.username = req.session.nick;
+        }
+        res.render('post/index', dati);
+    });
 };
 
 
@@ -27,33 +32,31 @@ post.list = function (req, res) {
 
 post.show = function (req, res) {
     controller.show(req, function(response,obj){
+        var dati = {
+            namesite: config.web.namesite,
+            base: config.web.base,
+            username: ''
+        };
+        //Set Username or leave blank
+        dati.username = (req.session.logIN == true) ? req.session.nick : '';
+
     	if(response < 0) {
-            res.render('500', {
-                namesite: config.web.namesite,
-                base: config.web.base,
-                title: '500 Fucking Error!',
-                content: obj,
-                error: ''
-            });
+            dati.title = '500 Fucking Error!';
+            dati.content = obj;
+            dati.error = '';
+            res.render('500', dati);
         }
         else if(response == 0) {
-            res.render('404', {
-                namesite: config.web.namesite,
-                base: config.web.base,
-                title: '404 Article Not Found!',
-                content: obj
-            });
+            dati.title = '404 Article Not Found!';
+            dati.content = obj;
+            res.render('404',dati);
         }
         else {
-
-            res.render('post/show', {
-                namesite: config.web.namesite,
-                title: obj.titolo,
-                base: config.web.base,
-                articolo: marked(obj.testo,{ sanitize: true}),
-                autore: obj.autore,
-                tag: obj.tag
-            });
+            dati.title = obj.titolo;
+            dati.articolo = marked(obj.testo,{ sanitize: true});
+            dati.autore = obj.autore;
+            dati.tag = obj.tag;
+            res.render('post/show', dati);
         }
     });
 };
@@ -66,11 +69,14 @@ post.show = function (req, res) {
 post.showNew = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
-            res.render('post/new', {
+            var dati = {
                 namesite: config.web.namesite,
+                username: req.session.nick,
                 title: 'Aggiungi Articolo',
-                base: config.web.base,
-            });
+                base: config.web.base
+            };
+
+            res.render('post/new',dati);
         }
         else {
             res.redirect('/login');
@@ -109,21 +115,23 @@ post.modify = function(req, res) {
         user.isLogged(req, function(risultato) {
             if(risultato > 0) {
                 controller.show(req, function(resp, info) {
+                    var dati = {
+                        namesite: config.web.namesite,
+                        username: '',
+                        base: config.web.base
+                    };
+                    //Set Username or leave blank
+                    dati.username = (req.session.logIN == true) ? req.session.nick : '';
+
                     if(resp > 0) {
-                        res.render('post/modify', {
-                            namesite: config.web.namesite,
-                            title: 'Modifica Articolo',
-                            base: config.web.base,
-                            data: info,
-                        });
+                        dati.title = 'Modifica Articolo';
+                        dati.data = info;
+                        res.render('post/modify',dati);
                     }
                     else {
-                        res.render('404', {
-                            namesite: config.web.namesite,
-                            base: config.web.base,
-                            title: '404 Article Not Found!',
-                            content: info
-                        });
+                        dati.title = '404 Article Not Found!';
+                        dati.content = info;
+                        res.render('404',dati);
                     }
                 });
             }
@@ -133,13 +141,16 @@ post.modify = function(req, res) {
         });
     }
     else {
-        res.render('500', {
+        var dati = {
             namesite: config.web.namesite,
             base: config.web.base,
             title: '500 Fucking Error!',
             content: info,
             error: ''
-        });
+        };
+        //Set Username or leave blank
+        dati.username = (req.session.logIN == true) ? req.session.nick : '';
+        res.render('500',dati);
     }
 };
 
@@ -190,20 +201,21 @@ post.dashboard = function(req, res) {
     user.isLogged(req, function(risultato) {
         if(risultato > 0) {
             controller.list(req, function(number,arr){
+                var dati = {
+                    namesite: config.web.namesite,
+                    numero: number,
+                    base: config.web.base
+                };
+                //Set Username or leave blank
+                dati.username = (req.session.logIN == true) ? req.session.nick : '';
+
             	if(number > 0) {
-                    res.render('admin/dashboard',{
-                        namesite: config.web.namesite,
-                        numero: number,
-                        base: config.web.base,
-                        obj: arr
-                    });
+                    dati.obj = arr;
+                    res.render('admin/dashboard', dati);
                 }
                 else {
-                    res.render('admin/dashboard', {
-                        numero: number,
-                        base: config.web.base,
-                        obj: "Nessun Articolo Disponibile!"
-                    });
+                    dati.obj = 'Nessun Articolo Disponibile!';
+                    res.render('admin/dashboard', dati);
                 }
             });
         }

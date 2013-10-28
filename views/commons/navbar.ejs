@@ -14,7 +14,11 @@
                         <li<%if(title == "Autore") {%> class="active"<%}%>><a href="/page/author">Author</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <%if(username.length == 0) {%>
                         <li<%if(title == "Login") {%> class="active"<%}%>><a href="/login">Login</a></li>
+                        <%} else {%>
+                        <li><a href="/dashboard"><%= username %></a></li>
+                        <%}%>
                         <li><a href="http://github.com/DLion/nodeblog">ForkMe</a></li>
                     </ul>
                 </div>
